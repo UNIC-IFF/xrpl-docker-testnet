@@ -1,0 +1,2 @@
+[validators]
+${VALIDATORS_PUBLIC_KEYS}

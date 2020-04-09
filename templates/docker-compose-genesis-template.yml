@@ -1,0 +1,32 @@
+version: "3"
+
+networks:
+  ripple-testnet:
+# Uncomment the following line if you have already created the network in docker
+#    external : true
+    ipam:
+      driver: default
+# The following line configures the subnet in the network
+#      config:
+#        - subnet: "192.168.16.0/24"
+
+
+services:
+  ripple_genesis:
+    image: antiggl/rippled-runner
+    container_name: ${VAL_NAME_PREFIX}genesis
+    volumes:
+      - ${CONFIGFILES}/${VAL_NAME_PREFIX}genesis:/rippled/config
+    command: "./rippled --start --conf config/rippled.cfg"
+# Uncomment the following lines to make genesis interface available in localhost. 
+# Changing the line to "-52235:51235", changes the port rippled listens in localhost
+#    ports:
+#      - ${PEER_PORT}:${PEER_PORT}
+    networks:
+      - ripple-testnet
+# Comment the line above and uncomment the following 2 lines to specify the IP address of the genesis server.
+#      ripple-testnet:
+#        ipv4_address: 192.168.16.2
+    expose:
+      - ${PEER_PORT}
+

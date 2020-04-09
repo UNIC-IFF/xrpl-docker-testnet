@@ -1,0 +1,14 @@
+  ripple_validator_${VALNUM}:
+    image: antiggl/rippled-runner
+    container_name: ${VAL_NAME_PREFIX}${VALNUM}
+    volumes:
+      - ${CONFIGFILES}/${VAL_NAME_PREFIX}${VALNUM}:/rippled/config
+    networks:
+      - ripple-testnet
+# Comment the line above and uncomment the following 2 lines to specify the IP address of the container.
+# Verify that the IP address belongs in the network's subnet
+#      ripple-testnet:
+#        ipv4_address: 192.168.16.1${VALNUM}
+    command: "./rippled --conf config/rippled.cfg"
+    expose:
+      - ${PEER_PORT}
