@@ -15,7 +15,7 @@ Currently, the docker daemon will pull the rippled-runner image from the DockerH
 - ```VAL_NAME_PREFIX``` : A prefix used for the naming of the validators.
 - ```TEMPLATES_DIR``` : The directory that contains the template files. Defaults to *./templates/* 
 - ```PEER_PORT``` : The port used for the communication between peers in the network. The docker network DOES NOT expose ports to the physical network interfaces of the host.
-
+- ```IMAGE_TAG```: The docker image tag of the uniciff/rippled-runner repository
 
 Launching the testnet
 
