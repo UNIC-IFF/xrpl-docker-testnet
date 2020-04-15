@@ -1,0 +1,80 @@
+version: "3"
+
+networks:
+  ripple-testnet:
+# Uncomment the following line if you have already created the network in docker
+#    external : true
+    ipam:
+      driver: default
+# The following line configures the subnet in the network
+#      config:
+#        - subnet: "192.168.16.0/24"
+
+
+services:
+  ripple_genesis:
+    image: uniciff/rippled-runner:${IMAGE_TAG}
+    container_name: validator-genesis
+    volumes:
+      - ${CONFIGFILES}/validator-genesis:/etc/opt/ripple
+    command: "./rippled --start"
+# Uncomment the following lines to make genesis interface available in localhost. 
+# Changing the line to "-52235:51235", changes the port rippled listens in localhost
+#    ports:
+#      - 51235:51235
+    networks:
+      - ripple-testnet
+# Comment the line above and uncomment the following 2 lines to specify the IP address of the genesis server.
+#      ripple-testnet:
+#        ipv4_address: 192.168.16.2
+    expose:
+      - 51235
+
+  ripple_validator_0:
+    image: uniciff/rippled-runner:${IMAGE_TAG}
+    container_name: validator-0
+    volumes:
+#      - ${CONFIGFILES}/validator-0:/rippled/config
+      - ${CONFIGFILES}/validator-0:/etc/opt/ripple
+    networks:
+      - ripple-testnet
+# Comment the line above and uncomment the following 2 lines to specify the IP address of the container.
+# Verify that the IP address belongs in the network's subnet
+#      ripple-testnet:
+#        ipv4_address: 192.168.16.10
+#    command: "./rippled --conf config/rippled.cfg"
+    command: "./rippled"
+    expose:
+      - 51235
+  ripple_validator_1:
+    image: uniciff/rippled-runner:${IMAGE_TAG}
+    container_name: validator-1
+    volumes:
+#      - ${CONFIGFILES}/validator-1:/rippled/config
+      - ${CONFIGFILES}/validator-1:/etc/opt/ripple
+    networks:
+      - ripple-testnet
+# Comment the line above and uncomment the following 2 lines to specify the IP address of the container.
+# Verify that the IP address belongs in the network's subnet
+#      ripple-testnet:
+#        ipv4_address: 192.168.16.11
+#    command: "./rippled --conf config/rippled.cfg"
+    command: "./rippled"
+    expose:
+      - 51235
+  ripple_validator_2:
+    image: uniciff/rippled-runner:${IMAGE_TAG}
+    container_name: validator-2
+    volumes:
+#      - ${CONFIGFILES}/validator-2:/rippled/config
+      - ${CONFIGFILES}/validator-2:/etc/opt/ripple
+    networks:
+      - ripple-testnet
+# Comment the line above and uncomment the following 2 lines to specify the IP address of the container.
+# Verify that the IP address belongs in the network's subnet
+#      ripple-testnet:
+#        ipv4_address: 192.168.16.12
+#    command: "./rippled --conf config/rippled.cfg"
+    command: "./rippled"
+    expose:
+      - 51235
