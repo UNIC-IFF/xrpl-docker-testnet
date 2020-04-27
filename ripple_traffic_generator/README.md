@@ -2,14 +2,14 @@
 The scripts in this repository are responsible to generate traffic, meaning transactions in out Ripple Testing Environment.
 
 ## Prerequisites
-First, you need to install node.js at your machine. If you haven't done it already please visit the following URL: https://nodejs.org/en/
+First, you need to install node.js at your machine. If you haven't done it already please visit the following URL: https://nodejs.org/en/    
 In the config.json file you can find variables needed to be provided for your private Ripple Network
 Note that that the variable "account_secret" in the config.json file ise the secret of the genesis ledger's account. In this case
 you can make a transaction transfering XRPs from the genesis ledger to any other account. If you want to transfer XRPs 
 from another account you need to update the value of the secret in the config file.
 
 ### Both the account key and secret of the validator genesis node are the following:
-Account Address: rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh
+Account Address: rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh    
 Account Secret: snoPBrXtMeMyMHUVTgbuqAfg1SUTb
 
 ## Definition of Scripts
