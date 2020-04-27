@@ -32,7 +32,7 @@ This javascript file is responsible to request the server info from the specifie
 You can run the script with this command "node server_info.js"
 
 ## Run it for the first time
-sh traffic_gen.sh 5 rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh    
+```sh traffic_gen.sh 5 rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh``` 
 
 This command will generate 5 new wallet accounts and it will spread 1000 XRPs to each one of those accounts.
 
