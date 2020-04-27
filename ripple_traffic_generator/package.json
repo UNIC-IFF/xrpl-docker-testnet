@@ -1,0 +1,16 @@
+{
+  "name": "ripple_traffic_gen",
+  "version": "1.0.0",
+  "description": "These scripts are developed in order to generate some traffic/transaction in our Ripple Private Network",
+  "main": "acc_info.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "fs": "0.0.1-security",
+    "node-fetch": "^2.6.0",
+    "ripple-lib": "^1.6.5"
+  }
+}

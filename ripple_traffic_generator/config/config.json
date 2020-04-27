@@ -1,0 +1,6 @@
+{
+    "host_domain" : "127.0.0.1:",
+    "port" : "6006",
+	"protocol":"ws://",
+	"account_secret":"snoPBrXtMeMyMHUVTgbuqAfg1SUTb"
+}
