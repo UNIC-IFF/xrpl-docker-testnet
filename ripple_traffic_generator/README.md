@@ -1,12 +1,12 @@
+
 # Generating Traffic in the Network
 The scripts in this repository are responsible to generate traffic, meaning transactions in out Ripple Testing Environment.
 
 ## Prerequisites
 First, you need to install node.js at your machine. If you haven't done it already please visit the following URL: https://nodejs.org/en/    
 In the config.json file you can find variables needed to be provided for your private Ripple Network
-Note that that the variable "account_secret" in the config.json file ise the secret of the genesis ledger's account. In this case
-you can make a transaction transfering XRPs from the genesis ledger to any other account. If you want to transfer XRPs 
-from another account you need to update the value of the secret in the config file.
+Note that that by default, in the config file, the validator's genesis account address and secret are defined. In this case, the trasnactions will be compiled/signed and commited from the aforementioned account. If you want to change those values you are free to do so.
+Also, you need to run ```npm install``` so the libraries needed like ripple-lib to be installed on your machine.
 
 ### Both the account key and secret of the validator genesis node are the following:
 ```Account Address: rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh```    
@@ -26,13 +26,15 @@ This javascript file is responsible to request from the Ripple API the generatio
 will be appended in a new file called "wallets.txt". You can run the script with this command ```node wallet_propose.js <number_of_accounts>```
 3. make_tx.js
 This javascript file is responsible to request from the Ripple API the execution of a transaction in the network.
-You can run the script with this command ```node wallet_propose.js <AMOUNT:FROMADDR:TOADDR:TOTAG>```
+You can run the script with this command ```node make_tx.js <AMOUNT:FROMADDR:TOADDR:TOTAG>```
 4. server_info.js
 This javascript file is responsible to request the server info from the specified Node ip and port in the config file.
 You can run the script with this command ```node server_info.js```
 
 ## Run it for the first time
-```sh traffic_gen.sh 5 rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh``` 
+To simplify things, the shell script called traffic_gen.sh is responsible to create an end-end scenario from the proposal of new wallets to transfering XRPs to the newly generated accounts. Again, the account that is used to trasfer XRPs from is set in the configuration file in this repository.
 
-This command will generate 5 new wallet accounts and it will spread 1000 XRPs to each one of those accounts.
+```sh traffic_gen.sh 5 1000``` 
+
+This command will generate 5 new wallet accounts and will spread 1000 XRPs to each one of those accounts from the account set in the config file (Genesis Ledger).
 

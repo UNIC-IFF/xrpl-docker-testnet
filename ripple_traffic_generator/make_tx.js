@@ -2,6 +2,7 @@ var config = require('./config/config.json');
 const RippleAPI = require('ripple-lib').RippleAPI
 const api       = new RippleAPI({ server: config.protocol+config.host_domain+config.port }) // Private rippled server
 const fetch     = require('node-fetch')
+const fs = require('fs')
 
 var gen_secr = config.genesis_ledger_secret; 
 
@@ -60,8 +61,25 @@ var _processTransaction = function () {
     signed_tx = api.sign(txJSON, secret)
     tx_at_ledger = closedLedger
 
-    api.submit(signed_tx.signedTransaction).then(function(tx_data){
-      console.log(tx_data)
+    api.submit(signed_tx.signedTransaction).then(function(tx_data){	
+		console.log(tx_data)
+		
+		try {
+			var data = [];
+			data = require('./transactions.json');
+			data.push(tx_data);
+			
+			fs.writeFile("./transactions.json", JSON.stringify(data), (err) => {
+				if (err) {
+					console.error(err);
+					return;
+				};
+				//console.log("File has been created");
+			});
+		} catch ( err ) {
+			console.log("File not found.");
+		}
+			
     }).catch(function(e){
       process.exit(1)
     })
