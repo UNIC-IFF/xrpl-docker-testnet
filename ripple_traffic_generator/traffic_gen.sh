@@ -19,10 +19,15 @@ iteratios=$1
 amount=$2
 
 # If file with wallet accounts exists delete it
-FILE=wallets.txt
+FILE=./output_data/accounts_to_pay.txt
 if test -f "$FILE"; then
-    rm -rf wallets.txt
+    rm -rf $FILE
 fi
+
+# If .json file with wallets exists delete it
+FILE_WALLETS=./output_data/wallets.json
+# Create new .json file for wallets information
+echo "[]" > $FILE_WALLETS
 
 #Generate wallet accounts
 for (( i=1; i <= $iteratios; ++i ))
@@ -37,13 +42,10 @@ for line in $lines; do
 done
 
 # If .json file with transactions traffic exists delete it
-FILE_TRANS=transactions.json
-if test -f "$FILE_TRANS"; then
-    rm -rf transactions.json
-fi
-
+FILE_TRANS=./output_data/transactions.json
 # Create new .json file for transactions traffic
-echo "[]" >> transactions.json
+echo "[]" > $FILE_TRANS
+
 
 #Split XRPs from genesis ledger to the generated wallets
 for i in "${myArray[@]}"
