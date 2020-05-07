@@ -19,12 +19,25 @@ api.connect().then(() => {
     var privateKey = keypair.privateKey;
     var publicKey = keypair.publicKey;
     var address = keypairs.deriveAddress(keypair.publicKey);
-	fs.appendFile('wallets.txt',  acc_id + "\n", (err) => {     
-		// In case of a error throw err. 
-		if (err) throw err; 
-	}) 
 	
-	fs.appendFile('wallets_secrets.txt',  acc_secret + "\n", (err) => {     
+	try {
+			var data = [];
+			data = require('./output_data/wallets.json');
+			data.push(address_info);
+			
+			fs.writeFile("./output_data/wallets.json", JSON.stringify(data), (err) => {
+				if (err) {
+					console.error(err);
+					return;
+				};
+				//console.log("File has been created");
+			});
+		} catch ( err ) {
+			console.log("File not found.");
+		}
+		
+		
+	fs.appendFile('./output_data/accounts_to_pay.txt',  acc_id + "\n", (err) => {     
 		// In case of a error throw err. 
 		if (err) throw err; 
 	}) 

@@ -1,10 +1,12 @@
 'use strict';
 var config = require('./config/config.json');
 const RippleAPI = require('ripple-lib').RippleAPI;
+var test_server = config.protocol+config.host_domain+config.port;
 
 const api = new RippleAPI({
-server: config.protocol+config.host_domain+config.port;
+    server: test_server // Private rippled server
 });
+
 api.connect().then(() => {
 /* begin custom code ------------------------------------ */
 

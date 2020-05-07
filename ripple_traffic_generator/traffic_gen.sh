@@ -1,20 +1,33 @@
 #!/bin/sh
 
-npm install
+if [[ $# -ne 2 ]]; then
+    echo "Illegal number of parameters"
+    exit 2
+fi
 
+CONFIG_FILE=config/config.json
+if test -f "$CONFIG_FILE"; then
+	acc_addr=$(cat $CONFIG_FILE | jq -r ".account_addr")
+fi
+ 
 RANDOM=$$
 
-# Define how many wallets to be proposed
+# Define how many wallets to be proposed (1st argument)
 iteratios=$1
 
-# Define the account addr of the genesis ledger or the account you want to transfer XRPs from
-acc_addr=$2
+#Define the amount to transfer as 2nd argument
+amount=$2
 
 # If file with wallet accounts exists delete it
-FILE=wallets.txt
+FILE=./output_data/accounts_to_pay.txt
 if test -f "$FILE"; then
-    rm -rf wallets.txt
+    rm -rf $FILE
 fi
+
+# If .json file with wallets exists delete it
+FILE_WALLETS=./output_data/wallets.json
+# Create new .json file for wallets information
+echo "[]" > $FILE_WALLETS
 
 #Generate wallet accounts
 for (( i=1; i <= $iteratios; ++i ))
@@ -28,8 +41,14 @@ for line in $lines; do
     myArray+=("$line")
 done
 
+# If .json file with transactions traffic exists delete it
+FILE_TRANS=./output_data/transactions.json
+# Create new .json file for transactions traffic
+echo "[]" > $FILE_TRANS
+
+
 #Split XRPs from genesis ledger to the generated wallets
 for i in "${myArray[@]}"
 do
-    node make_tx.js 1000:$acc_addr:$i:$RANDOM
+    node make_tx.js $amount:$acc_addr:$i:$RANDOM
 done
