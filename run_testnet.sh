@@ -15,7 +15,6 @@ source scripts/gen_valkeys.sh
 
 VAL_NUM=${1:-0}
 
-
 generate_keys_and_configs ${VAL_NUM}
 
 dockercompose_testnet_generator ${VAL_NUM} ${OUTPUT_DIR}
@@ -34,5 +33,13 @@ for (( i=0; i<"${VAL_NUM}"; i++ ))
 do
 	docker exec -it ${VAL_NAME_PREFIX}$i sh -c "./rippled connect ${VAL_NAME_PREFIX}genesis ${PEER_PORT}"
 done
+
+#run monitoring system
+echo "Starting the monitoring system..."
+docker-compose -f ${WORKING_DIR}/monitoring_system/monitoring_compose.yml up -d
+
+#create prometheus as a data source in grafana container
+chmod +x ./monitoring_system/create-datasource.sh
+./monitoring_system/create-datasource.sh
 
 echo "Done!!!"

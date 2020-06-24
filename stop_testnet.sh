@@ -9,5 +9,6 @@ OUTPUT_DIR=${OUTPUT_DIR:-$(realpath ./configfiles)}
 IMAGE_TAG=${IMAGE_TAG:-"v1.5"}
 
 CONFIGFILES=${OUTPUT_DIR} IMAGE_TAG=${IMAGE_TAG} docker-compose -f ${COMPOSE_FILE} down
+docker-compose -f ${WORKING_DIR}/monitoring_system/monitoring_compose.yml down
 
 
