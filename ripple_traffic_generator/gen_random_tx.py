@@ -76,5 +76,7 @@ for i in range(txcount):
     facc=Account(server_address,faccid,myaccounts[faccid]['master_seed'])
     tx_info=facc.send_xrp(faccid,taccid,r3,myaccounts[faccid]['master_seed'])
     print (tx_info)
-    time.sleep(stime+sleeptime - time.time())
+    sleeptime=stime +sleeptime - time.time()
+    if sleeptime>0:
+        time.sleep(sleeptime)
 
