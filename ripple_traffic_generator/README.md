@@ -11,7 +11,7 @@ Also, you need to run ```npm install``` so the libraries needed like ripple-lib 
 Alternatively, you can use docker container to run the traffic generator. ```docker/``` directory hosts the Dockerfile and the entrypoint scripts to launch the traffic generator.
 To build the traffic generator docker image, run the following command
 ```
-docker build -t ripple-traffic-gen
+docker build -t ripple-traffic-gen -f ./docker/Dockerfile ./docker
 ```
 This repository includes a docker-compose YAML file, ```./ripple-traffic-generator.yml```, to run the ripple-traffic-generator. In case you have not pulled or built the docker image before, docker-compose will do it for you.
 ```
