@@ -12,10 +12,10 @@
 #        ipv4_address: 192.168.16.1${VALNUM}
 #    command: "./rippled --conf config/rippled.cfg"
     command: "./rippled"
-    ports:
-      - ${PEER_PORT}
-      - 6006
-      - 5005
+#    ports:
+#      - ${PEER_PORT}
+#      - 6006
+#      - 5005
     expose:
       - ${PEER_PORT}
       - 6006
