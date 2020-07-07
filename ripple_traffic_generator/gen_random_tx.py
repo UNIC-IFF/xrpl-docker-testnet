@@ -58,17 +58,21 @@ print("Server address: %s"%server_address)
 # Reading the list of existing wallets to be used.
 
 myaccounts={}
-accounts_files=['./wallets.txt','./wallets_secrets.txt']
-with open(accounts_files[0],'r') as f:
-    wallets=f.read().strip().split('\n')
+#accounts_files=['./wallets.txt','./wallets_secrets.txt']
+#with open(accounts_files[0],'r') as f:
+#    wallets=f.read().strip().split('\n')
 
-with open(accounts_files[1],'r') as f:
-    wallets_secrets=f.read().strip().split('\n')
+#with open(accounts_files[1],'r') as f:
+#    wallets_secrets=f.read().strip().split('\n')
 
-for i,w in enumerate(wallets):
-    myaccounts[w]={'master_seed':wallets_secrets[i]}
+#for i,w in enumerate(wallets):
+#    myaccounts[w]={'master_seed':wallets_secrets[i]}
 
-naccounts=len(myaccounts.keys())
+accounts_file='output_data/wallets.json'
+with open(accounts_file,'r') as f:
+    myaccounts=json.load(f)
+
+naccounts=len(myaccounts)
 
 #print(myaccounts)
 
@@ -80,10 +84,10 @@ for i in range(txcount):
     r1=int(random.uniform(1,naccounts))
     r2=int(random.uniform(1,naccounts))
     r3=random.gauss(15,3)
-    faccid= list(myaccounts)[r1]    
-    taccid= list(myaccounts)[r2]
-    facc=Account(server_address,faccid,myaccounts[faccid]['master_seed'])
-    tx_info=facc.send_xrp(faccid,taccid,r3,myaccounts[faccid]['master_seed'])
+    faccobj= myaccounts[r1]    
+    taccobj= myaccounts[r2]
+    facc=Account(server_address,faccobj['address'],faccobj['secret'])
+    tx_info=facc.send_xrp(faccobj['address'],taccobj['address'],r3,faccobj['secret'])
     print (tx_info)
     sleeptime=stime +sleeptime - time.time()
     if sleeptime>0:
