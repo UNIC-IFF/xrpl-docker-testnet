@@ -66,10 +66,10 @@ var _processTransaction = function () {
 		
 		try {
 			var data = [];
-			data = require('./transactions.json');
+			data = require('./output_data/transactions.json');
 			data.push(tx_data);
 			
-			fs.writeFile("./transactions.json", JSON.stringify(data), (err) => {
+			fs.writeFile("./output_data/transactions.json", JSON.stringify(data), (err) => {
 				if (err) {
 					console.error(err);
 					return;

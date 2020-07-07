@@ -84,5 +84,5 @@ This command will generate 5 new wallet accounts and will spread 1000 XRPs to ea
 ``` 
 python3 ./gen_random_tx.py 20 5
 ```
-This command will generate 20 random transactions between the wallets in ```./wallets.txt``` file and will submit them with the rate 20tx/s.
+This command will generate 20 random transactions between the wallets in ```./wallets.txt``` file and will submit them with the rate 5tx/s.
 
