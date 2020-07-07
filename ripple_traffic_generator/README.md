@@ -80,3 +80,9 @@ To simplify things, the shell script called traffic_gen.sh is responsible to cre
 
 This command will generate 5 new wallet accounts and will spread 1000 XRPs to each one of those accounts from the account set in the config file (Genesis Ledger).
 
+## Run the random generator
+``` 
+python3 ./gen_random_tx.py 20 5
+```
+This command will generate 20 random transactions between the wallets in ```./wallets.txt``` file and will submit them with the rate 20tx/s.
+
