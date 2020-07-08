@@ -8,7 +8,7 @@ networks:
 services:
   rippled-traffic-gen:
 #    image: node:12
-    image: antiggl/ripple-traffic-gen:latest
+    image: uniciff/ripple-traffic-gen:latest
     build:
       context: ./docker
       dockerfile: Dockerfile
