@@ -1,9 +1,13 @@
 import json
+import os.path
 from prometheus_client import CollectorRegistry, Gauge, push_to_gateway
+from config import monitoring_vars
 
+directory = './output_data/'
+filename = 'transactions.json'
+file_path = os.path.join(directory, filename)
 
-
-f = open('./ripple_traffic_generator/output_data/txs.json')
+f = open(file_path)
 data = json.load(f)
 f.close()
 
@@ -25,5 +29,9 @@ for i in data:
 
         g = Gauge('Fee', 'Transaction Fee', registry=registry)
         g.set(i['tx_json']['Fee'])
+    try:
+        push_to_gateway(monitoring_vars.HOST_DOMAIN+':'+monitoring_vars.PG_PORT, job=string_text, registry=registry)
+        print("Data for " + string_text + " Succesfully pushed towards Push Gateway")
+    except:
+        print("There are was an error trying to reach the monitoring engine")
 
-    push_to_gateway('localhost:9091', job=string_text, registry=registry)
