@@ -19,7 +19,8 @@ else:
     sys.exit()
 
 
-
+# Transactions output file
+transactions_outfile="./output_data/random_transactions.json"
 
 # load configuration
 configfile='./config/config.json'
@@ -78,7 +79,7 @@ naccounts=len(myaccounts)
 
 sleeptime=1/txrate
 
-
+transactions_out=[]
 for i in range(txcount):
     stime=time.time()
     r1=int(random.uniform(1,naccounts))
@@ -88,8 +89,15 @@ for i in range(txcount):
     taccobj= myaccounts[r2]
     facc=Account(server_address,faccobj['address'],faccobj['secret'])
     tx_info=facc.send_xrp(faccobj['address'],taccobj['address'],r3,faccobj['secret'])
+    transactions_out.append(tx_info)
     print (tx_info)
     sleeptime=stime +sleeptime - time.time()
     if sleeptime>0:
         time.sleep(sleeptime)
+
+print ("\n\n",transactions_out)
+
+with open(transactions_outfile,'w') as f:
+    f.write(json.dumps(transactions_out))
+
 
