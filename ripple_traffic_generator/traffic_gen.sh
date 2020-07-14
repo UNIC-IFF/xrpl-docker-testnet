@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 if [[ $# -ne 2 ]]; then
     echo "Illegal number of parameters"

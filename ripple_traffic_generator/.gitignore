@@ -116,4 +116,6 @@ dist
 # generated txt files
 wallets.txt
 wallets_secrets.txt
+output_data/*
 transactions.json
+wallets.json
