@@ -1,6 +1,7 @@
   ripple_validator_${VALNUM}:
     image: uniciff/rippled-runner:${IMAGE_TAG}
     container_name: ${VAL_NAME_PREFIX}${VALNUM}
+    hostname: ${VAL_NAME_PREFIX}${VALNUM}
     volumes:
 #      - ${CONFIGFILES}/${VAL_NAME_PREFIX}${VALNUM}:/rippled/config
       - ${CONFIGFILES}/${VAL_NAME_PREFIX}${VALNUM}:/etc/opt/ripple
