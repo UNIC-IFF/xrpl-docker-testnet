@@ -16,6 +16,7 @@ services:
     #image: uniciff/rippled-runner:v1.5
     image: uniciff/rippled-runner:${IMAGE_TAG}
     container_name: ${VAL_NAME_PREFIX}genesis
+    hostname: ${VAL_NAME_PREFIX}genesis
     volumes:
       - ${CONFIGFILES}/${VAL_NAME_PREFIX}genesis:/rippled/config
     command: "./rippled --start --conf config/rippled.cfg"

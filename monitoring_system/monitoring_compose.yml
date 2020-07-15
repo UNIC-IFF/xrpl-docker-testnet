@@ -1,14 +1,29 @@
-version: "3"
-services:
+version: "3.5"
+networks:
+  ripple_testnet:
+    external : true
+    name: ${TESTNET:-"ripple-testnet"}
+  monitoring_internal_net:
+#    external: true
+#    name: ${MONITORING_NET:-"monitoring-net"}
 
+services:
   pushgateway:
-    image: prom/pushgateway:v0.4.0
+    image: prom/pushgateway:${PUSHGW_IMG_TAG:-latest}
+#    image: prom/pushgateway:${PUSHGW_IMG_TAG:-v0.4.0
+    container_name: pushgateway
     ports:
       - 9091:9091
+    networks:
+      - ripple_testnet
 
   prometheus:
     image: prom/prometheus:v2.0.0
+#    image: prom/prometheus:v2.0.0
+    container_name: prometheus
     command: --config.file=/etc/prometheus/prometheus.yml
+    networks:
+      - monitoring_internal_net
     ports:
       - 9090:9090
     volumes:
@@ -16,15 +31,23 @@ services:
       - ./prometheus/alerts/:/etc/prometheus/rules.d/
 
   grafana:
-    image: grafana/grafana:4.6.2
+    image: grafana/grafana:${GRAFANA_IMG_TAG:-latest}
+    container_name: grafana
+#    image: grafana/grafana:4.6.2
     ports:
       - 3000:3000
+    networks:
+      - monitoring_internal_net
     environment:
       - GF_SECURITY_ADMIN_PASSWORD=password
 
   alertmanager:
-    image: prom/alertmanager:v0.11.0
+    image: prom/alertmanager:${ALERTMANAGER_IMG_TAG:-latest}
+    container_name: alertmanager
+#    image: prom/alertmanager:v0.11.0
     command: --config.file=/etc/alertmanager/alertmanager.yml
+    networks:
+      - monitoring_internal_net
     ports:
       - 9093:9093
     volumes:
