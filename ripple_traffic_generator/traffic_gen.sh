@@ -46,9 +46,11 @@ FILE_TRANS=./output_data/transactions.json
 # Create new .json file for transactions traffic
 echo "[]" > $FILE_TRANS
 
-
 #Split XRPs from genesis ledger to the generated wallets
 for i in "${myArray[@]}"
 do
     node make_tx.js $amount:$acc_addr:$i:$RANDOM
 done
+
+# Push transaction data to monitoring engine
+python ../monitoring_system/push_metrics.py 
