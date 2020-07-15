@@ -1,11 +1,11 @@
-version: "3.7"
+version: "3.5"
 networks:
   ripple_testnet:
-    external:true
-    name: ${TESTNET :- ripple_testnet}
+    external : true
+    name: ${TESTNET:-"ripple-testnet"}
   monitoring_internal_net:
 #    external: true
-#    name: ${MONITORING_NET:-monitoring_net}
+#    name: ${MONITORING_NET:-"monitoring-net"}
 
 services:
   pushgateway:

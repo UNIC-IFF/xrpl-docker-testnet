@@ -36,10 +36,13 @@ done
 
 #run monitoring system
 echo "Starting the monitoring system..."
-docker-compose -f ${WORKING_DIR}/monitoring_system/monitoring_compose.yml up -d
 
-#create prometheus as a data source in grafana container
-chmod +x ./monitoring_system/create-datasource.sh
-./monitoring_system/create-datasource.sh
+
+mon_start_script=${WORKING_DIR}/monitoring_system/run_monitoring_services.sh
+if [ -x "$mon_start_script" ]; then
+  chmod +x $mon_start_script
+fi
+
+WORKING_DIR=${WORKING_DIR}/monitoring_system $mon_start_script
 
 echo "Done!!!"
