@@ -44,7 +44,7 @@ fi
 
 WORKING_DIR=${WORKING_DIR}/monitoring_system $mon_start_script
 
-#Setup exporter in each validator
+echo "Setup exporter in each validator"
 for (( i=0; i<"${VAL_NUM}"; i++ ))
 do
 	docker exec -it ${VAL_NAME_PREFIX}$i sh -c "chmod +x ./exporters/python_install.sh && ./exporters/python_install.sh"
