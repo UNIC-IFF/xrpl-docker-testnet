@@ -20,6 +20,6 @@ make install
 
 apt install -y python3-pip
 
-pip3 install -r server_info/requirements.txt
+ pip3 install -r server_info/requirements.txt
 
 python3 server_info/server_info.py
