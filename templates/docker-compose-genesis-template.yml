@@ -19,7 +19,7 @@ services:
     volumes:
       - ${CONFIGFILES}/${VAL_NAME_PREFIX}genesis:/rippled/config
       - ./exporters:/rippled/exporters
-    command: bash -c "chmod +x ./rippled/exporters/python_install.sh && ./rippled/exporters/python_install.sh && ./rippled --start --conf config/rippled.cfg"      
+    command: sh -c "chmod +x ./rippled/exporters/python_install.sh && ./rippled/exporters/python_install.sh && ./rippled --start --conf config/rippled.cfg"      
 # Uncomment the following lines to make genesis interface available in localhost.
 # Changing the line to "-52235:51235", changes the port rippled listens in localhost
     ports:
