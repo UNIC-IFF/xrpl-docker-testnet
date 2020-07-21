@@ -1,14 +1,16 @@
-# Prom-Stack
-
-This repo contains a quick start for running a development instance of Prometheus.  
+# Blockchain TestNet Monitoring System
 
 ## What's Included?
+This repository includes the needed scripts for the automatic deployment of a monitoring system (Consisted of a prometheus server, a push gateway, an alert manager and a grafana - in form of containers) along with custom exporters for the exposure of monitoring data towards the monitoring system.
 
-* Prometheus Server
-* Push Gateway
-* Alertmanager
-* Grafana
+## Check if monitoring system is up and running
+1. Deploy a private TestNet (This process will also deploy the monitoirng system as well)
+1. Navigate to [http://<ip-address>:9090]() for Prometheus.  
+1. Navigate to [http://<ip-address>:9091]() for the Push Gateway.  
+1. Navigate to [http://<ip-address>:9093]() for Alert Manager.
+1. Navigate to [http://<ip-address>:3000]() for Grafana.
 
+## General Architecture
 ```
                +--------------+
                |              |
@@ -33,34 +35,5 @@ This repo contains a quick start for running a development instance of Prometheu
                |              |
                +--------------+
 ```
-
-## How do I use it?
-
-1. Clone the repo.
-1. Navigate to the directory and run `make up`
-1. Go to [http://localhost:9090](http://localhost:9090) for Prometheus.  
-1. Go to [http://localhost:9091](http://localhost:9091) for the Push Gateway.  
-1. Go to [http://localhost:9093](http://localhost:9093) for Alertmanager.
-1. Go to [http://localhost:3000](http://localhost:3000) for Grafana.
-
-# Guides
-## Add a Scrape Target
-
-To add a new scrape target, edit the `scrape_configs` section of `/prometheus/prometheus.yml` and run `make reload-prom`
-
-See [here](https://prometheus.io/docs/operating/configuration/#%3Cscrape_config%3E) for more details on scrape configs.
-
-## Add an alert
-
-To add a new alert, create or edit a `*.rules` file in the `prometheus/alerts` directory and run `make reload-prom`
-
-## Use the Push Gateway
-
-The Pushgateway can be used as an intermediary to push metrics, where the Prometheus pull model doesn't fit.  Examples
-of this include short lived processes or batch jobs.
-
-To push a metric in Prom-Stack, you can do something like this:
-
-`echo "mymetric 99" | curl --data-binary @- http://localhost:9091/metrics/job/my-push-job`
-
-You can confirm this has worked by navigating to the [Push Gateway](http://localhost:9091) UI or the [Prometheus](http://localhost:9090) expression browser.
+## Acknowledgement
+This repository was initially forked from [https://github.com/evnsio/prom-stack](https://github.com/evnsio/prom-stack).
