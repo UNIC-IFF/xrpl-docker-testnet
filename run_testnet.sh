@@ -47,7 +47,7 @@ WORKING_DIR=${WORKING_DIR}/monitoring_system $mon_start_script
 echo "Setup exporter in each validator"
 for (( i=0; i<"${VAL_NUM}"; i++ ))
 do
-	docker exec -it ${VAL_NAME_PREFIX}$i sh -c "python3 exporters/server_info/server_info.py"
+	docker exec -d ${VAL_NAME_PREFIX}$i sh -c "python3 exporters/server_info/server_info.py"
 done
 
 
