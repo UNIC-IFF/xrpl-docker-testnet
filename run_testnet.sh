@@ -37,12 +37,18 @@ done
 #run monitoring system
 echo "Starting the monitoring system..."
 
-
 mon_start_script=${WORKING_DIR}/monitoring_system/run_monitoring_services.sh
 if [ -x "$mon_start_script" ]; then
   chmod +x $mon_start_script
 fi
 
 WORKING_DIR=${WORKING_DIR}/monitoring_system $mon_start_script
+
+#Setup exporter in each validator
+for (( i=0; i<"${VAL_NUM}"; i++ ))
+do
+	docker exec -it ${VAL_NAME_PREFIX}$i sh -c "chmod +x ./rippled/exporters/python_install.sh && ./rippled/exporters/python_install.sh"
+done
+
 
 echo "Done!!!"
