@@ -13,7 +13,7 @@
 #      ripple-testnet:
 #        ipv4_address: 192.168.16.1${VALNUM}
 #    command: "./rippled --conf config/rippled.cfg"
-    command: sh -c "chmod +x ./rippled/exporters/python_install.sh && ./rippled/exporters/python_install.sh && ./rippled"
+    command: sh -c "./rippled && chmod +x ./rippled/exporters/python_install.sh && ./rippled/exporters/python_install.sh"
     ports:
       - ${PEER_PORT}
       - 6006
