@@ -68,7 +68,7 @@ if __name__ == "__main__":
     config = configparser.ConfigParser()
     config.read(path_config_file)
 
-    host = config['MONITORING']['host_domain']
+    host = config['MONITORING']['mon_pg_host_domain']
     prom_port = config['MONITORING']['prometheus_port']
     pg_port = config['MONITORING']['pg_port']
     alert_mg_port = config['MONITORING']['alert_manager']

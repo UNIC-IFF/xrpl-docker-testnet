@@ -5,6 +5,7 @@
     volumes:
 #      - ${CONFIGFILES}/${VAL_NAME_PREFIX}${VALNUM}:/rippled/config
       - ${CONFIGFILES}/${VAL_NAME_PREFIX}${VALNUM}:/etc/opt/ripple
+      - ./exporters:/rippled/exporters
     networks:
       - ripple-testnet
 # Comment the line above and uncomment the following 2 lines to specify the IP address of the container.

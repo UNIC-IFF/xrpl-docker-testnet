@@ -8,7 +8,7 @@ COMPOSE_FILENAME=${COMPOSE_FILENAME:-"docker-compose-testnet.yaml"}
 OUTPUT_DIR=${OUTPUT_DIR:-$(realpath ./configfiles)}
 VAL_NAME_PREFIX=${VAL_NAME_PREFIX:-"validator-"}
 PEER_PORT=${PEER_PORT:-51235}
-IMAGE_TAG=${IMAGE_TAG:-"v1.5"}
+IMAGE_TAG=${IMAGE_TAG:-"v1.5.1"}
 
 source scripts/helper_functions.sh
 source scripts/gen_valkeys.sh
@@ -37,12 +37,18 @@ done
 #run monitoring system
 echo "Starting the monitoring system..."
 
-
 mon_start_script=${WORKING_DIR}/monitoring_system/run_monitoring_services.sh
 if [ -x "$mon_start_script" ]; then
   chmod +x $mon_start_script
 fi
 
 WORKING_DIR=${WORKING_DIR}/monitoring_system $mon_start_script
+
+echo "Setup exporter in each validator"
+for (( i=0; i<"${VAL_NUM}"; i++ ))
+do
+	docker exec -d ${VAL_NAME_PREFIX}$i sh -c "python3 exporters/server_info/server_info.py"
+done
+
 
 echo "Done!!!"

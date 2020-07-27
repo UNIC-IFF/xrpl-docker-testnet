@@ -23,7 +23,7 @@ services:
     container_name: prometheus
     command: --config.file=/etc/prometheus/prometheus.yml
     networks:
-      - monitoring_internal_net
+      - ripple_testnet
     ports:
       - 9090:9090
     volumes:
@@ -37,7 +37,7 @@ services:
     ports:
       - 3000:3000
     networks:
-      - monitoring_internal_net
+      - ripple_testnet
     environment:
       - GF_SECURITY_ADMIN_PASSWORD=password
 
@@ -47,7 +47,7 @@ services:
 #    image: prom/alertmanager:v0.11.0
     command: --config.file=/etc/alertmanager/alertmanager.yml
     networks:
-      - monitoring_internal_net
+      - ripple_testnet
     ports:
       - 9093:9093
     volumes:
