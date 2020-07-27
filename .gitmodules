@@ -1,0 +1,4 @@
+[submodule "xrpl-unl-manager"]
+	path = xrpl-unl-manager
+	url = https://github.com/antIggl/xrpl-unl-manager.git
+	branch = development
