@@ -1,9 +1,10 @@
-version: "3"
+version: "3.7"
 
 networks:
   ripple-testnet:
 # Uncomment the following line if you have already created the network in docker
-#    external : true
+    external : true
+    name: ${TESTNET_NAME:-ripple_testnet}
     ipam:
       driver: default
 # The following line configures the subnet in the network
