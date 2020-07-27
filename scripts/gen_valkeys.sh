@@ -16,7 +16,6 @@ CONFIG_TEMPLATE_DIR=${TEMPLATES_DIR:-${CONFIG_TEMPLATE_DIR_DEFAULT}}
 
 PEER_PORT=${PEER_PORT:-51235}
 
-DOCKER_OUTPUT_DIR="./$(basename $OUTPUT_DIR)/"
 
 
 function check_and_create_output_dirs(){
@@ -28,6 +27,7 @@ function check_and_create_output_dirs(){
 
 
 function generate_validator_keys() {
+  DOCKER_OUTPUT_DIR="./$(basename $OUTPUT_DIR)/"
 	# Arguments
 	val_id=$1
 	out_keys="${DOCKER_OUTPUT_DIR}/${VAL_NAME_PREFIX}${val_id}/validator-keys.json"
@@ -58,7 +58,8 @@ function generate_validator_keys() {
 }
 
 function generate_validator_configuration() {
-	# Arguments
+	DOCKER_OUTPUT_DIR="./$(basename $OUTPUT_DIR)/"
+  # Arguments
 	val_id=$1
 	# It is running in local machine, so no use of DOCKER_OUTPUT_DIR
 	out_keys="${OUTPUT_DIR}/${VAL_NAME_PREFIX}${val_id}/validator-keys.json"
