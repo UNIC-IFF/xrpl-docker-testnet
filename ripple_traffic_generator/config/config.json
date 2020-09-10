@@ -1,5 +1,5 @@
 {
-    "host_domain" : "validator-genesis:",
+    "host_domain" : "localhost:",
     "port" : "6006",
 	"protocol":"ws://",
 	"account_addr": "rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh",
