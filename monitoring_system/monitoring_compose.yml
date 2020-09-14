@@ -3,11 +3,25 @@ networks:
   ripple_testnet:
     external : true
     name: ${TESTNET:-"ripple-testnet"}
-  monitoring_internal_net:
-#    external: true
-#    name: ${MONITORING_NET:-"monitoring-net"}
-
 services:
+  influxdb:
+    image: influxdb:1.8.1
+    container_name: influxdb
+    environment:
+      - INFLUXDB_ADMIN_ENABLED=true 
+      - INFLUXDB_ADMIN_USER=${INFLUXDB_ADMIN_USER:-admin}
+      - INFLUXDB_ADMIN_PASSWORD=${INFLUXDB_ADMIN_PASSWORD:-admin}
+      - INFLUXDB_DB=ripple
+      - INFLUXDB_HTTP_LOG_ENABLED=false
+      - INFLUXDB_REPORTING_DISABLED=true
+      - INFLUXDB_USER=${INFLUXDB_USER:-iff_user}
+      - INFLUXDB_USER_PASSWORD=${INFLUXDB_USER_PASSWORD:-iff_psw}
+    networks:
+      - ripple_testnet
+    volumes:
+      - ./local_bind_volume_dir:/var/lib/influxdb
+    ports:
+      - 8086:8086
   pushgateway:
     image: prom/pushgateway:${PUSHGW_IMG_TAG:-latest}
 #    image: prom/pushgateway:${PUSHGW_IMG_TAG:-v0.4.0
@@ -16,7 +30,6 @@ services:
       - 9091:9091
     networks:
       - ripple_testnet
-
   prometheus:
     image: prom/prometheus:v2.0.0
 #    image: prom/prometheus:v2.0.0
@@ -29,7 +42,6 @@ services:
     volumes:
       - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
       - ./prometheus/alerts/:/etc/prometheus/rules.d/
-
   grafana:
     image: grafana/grafana:${GRAFANA_IMG_TAG:-latest}
     container_name: grafana
@@ -40,7 +52,6 @@ services:
       - ripple_testnet
     environment:
       - GF_SECURITY_ADMIN_PASSWORD=password
-
   alertmanager:
     image: prom/alertmanager:${ALERTMANAGER_IMG_TAG:-latest}
     container_name: alertmanager

@@ -7,7 +7,7 @@ global:
   # Attach these labels to any time series or alerts when communicating with
   # external systems (federation, remote storage, Alertmanager).
   external_labels:
-      monitor: 'prom-stack'
+      monitor: 'ripple_mon'
 
 # Alertmanager configuration
 alerting:
@@ -20,6 +20,12 @@ alerting:
 rule_files:
   # - "first_rules.yml"
   # - "second_rules.yml"
+
+remote_write:
+  - url: "http://influxdb:8086/api/v1/prom/write?db=ripple&u=iff_user&p=iff_psw"
+
+remote_read:
+  - url: "http://influxdb:8086/api/v1/prom/read?db=ripple&u=iff_user&p=iff_psw"
 
 scrape_configs:
   - job_name: 'prom-stack'
