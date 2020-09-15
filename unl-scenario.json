@@ -1,0 +1,38 @@
+{
+    "name": "Ripple Testnet sample scenario",
+    "description": "A sample UNL connectivity change scenario for the Ripple Testnet",
+    "authors":[ {
+                "fullname": "Antonios Inglezakis",
+                "email": "inglezakis.a@unic.ac.cy",
+                "affiliation": "Institute For the Future - University of Nicosia"}
+            ],
+    "states":{
+        "0":{
+            "state_id":"initial_state",
+            "comments":"The state_id can then be used for reference in any scripts reading the scenario. It is also used as id by the visualizer.",
+            "validators":{
+                "validator-genesis":{
+                    "unl":["validator-genesis","validator-0","validator-1","validator-2","validator-3"],
+                    "connected":["validator-genesis","validator-0","validator-1","validator-2","validator-3"]
+                },
+                "validator-0":{
+                    "unl":["validator-genesis","validator-0","validator-1","validator-2","validator-3"],
+                    "connected":["validator-genesis","validator-0","validator-1","validator-2","validator-3"]
+                },
+                "validator-1":{
+                    "unl":["validator-genesis","validator-0","validator-1","validator-2","validator-3"],
+                    "connected":["validator-genesis","validator-0","validator-1","validator-2","validator-3"]
+                },
+                "validator-2":{
+                    "unl":["validator-genesis","validator-0","validator-1","validator-2","validator-3"],
+                    "connected":["validator-genesis","validator-0","validator-1","validator-2","validator-3"]
+                },
+                "validator-3":{
+                    "unl":["validator-genesis","validator-0","validator-1","validator-2","validator-3"],
+                    "connected":["validator-genesis","validator-0","validator-1","validator-2","validator-3"]
+                }
+            }
+
+        }
+    }
+}
