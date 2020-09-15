@@ -1,4 +1,4 @@
-version: "3.7"
+version: "3.5"
 
 networks:
   ripple-testnet:
@@ -36,3 +36,4 @@ services:
       - ${PEER_PORT}
       - 6006
       - 5005
+
