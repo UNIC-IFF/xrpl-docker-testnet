@@ -1,4 +1,5 @@
 var config = require('./config/config.json');
+const {performance} = require('perf_hooks');
 const RippleAPI = require('ripple-lib').RippleAPI
 const api       = new RippleAPI({ server: config.protocol+config.host_domain+config.port }) // Private rippled server
 const fetch     = require('node-fetch')
@@ -60,10 +61,14 @@ var _processTransaction = function () {
 
     signed_tx = api.sign(txJSON, secret)
     tx_at_ledger = closedLedger
-
-    api.submit(signed_tx.signedTransaction).then(function(tx_data){	
-		console.log(tx_data)
+	
+	var t0 = performance.now()
+	
+    api.submit(signed_tx.signedTransaction).then(function(tx_data){			
+		var t1 = performance.now()
+		tx_data["validation_time"] = String(t1 - t0)
 		
+		console.log(tx_data)
 		try {
 			var data = [];
 			data = require('./output_data/transactions.json');
@@ -74,7 +79,6 @@ var _processTransaction = function () {
 					console.error(err);
 					return;
 				};
-				//console.log("File has been created");
 			});
 		} catch ( err ) {
 			console.log("File not found.");
