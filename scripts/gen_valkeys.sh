@@ -80,6 +80,7 @@ function generate_validator_configuration() {
 		
 		if [[ -n "$UNL_MANAGER_ROOT_URI" ]]; then
 			unl_pub_key=$(cat "${OUTPUT_DIR}/unl-manager/validator-keys.json" | jq .public_key | sed 's/\"//g' )
+			unl_pub_key=$(echo -e "import utils\nprint(utils.base58ToHex('${unl_pub_key}').upper().decode('ascii'))" | PYTHONPATH=$(realpath ./xrpl-unl-manager/) python3 )
 			unl_uri="${UNL_MANAGER_ROOT_URI}${VAL_NAME_PREFIX}${val_id}/"
 			# There is a UNL manager set up
 			sed -e "s#\${UNL_PUBLISHERS_URIS}#${unl_uri}#" \
@@ -101,6 +102,7 @@ function generate_validator_configuration() {
 
 		if [[ -n "$UNL_MANAGER_ROOT_URI" ]]; then
 			unl_pub_key=$(cat "${OUTPUT_DIR}/unl-manager/validator-keys.json" | jq .public_key | sed 's/\"//g' ) 
+			unl_pub_key=$(echo -e "import utils\nprint(utils.base58ToHex('${unl_pub_key}').upper().decode('ascii'))" | PYTHONPATH=$(realpath ./xrpl-unl-manager/) python3 )
 			unl_uri="${UNL_MANAGER_ROOT_URI}${VAL_NAME_PREFIX}${val_id}/"
 			# There is a UNL manager set up
 			sed -e "s#\${UNL_PUBLISHERS_URIS}#${unl_uri}#" \
