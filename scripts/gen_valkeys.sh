@@ -69,18 +69,28 @@ function generate_validator_configuration() {
 
 	# Read all validator keys and list them
 	all_validator_keys=$(cat  ${OUTPUT_DIR}/${VALIDATORS_MAP_FILENAME} | jq '.[]' | sed ':a;N;$!ba;s/\n/\\n/g' | sed 's/\"//g')
-
+	
 	if [[ "$val_id" == "genesis" ]]; then
 		#It's genesis node
 		# replace  ips_fixed and validator token in cfg file
 		sed -e "s#\${VALIDATOR_TOKEN}#$(tail -n 12 ${out_token} | sed -e ':a;N;$!ba;s/\n/\\n/g;s/\#/\\#/g')#" \
 			-e "s#\${IPS_FIXED}#$(cat ${OUTPUT_DIR}/${IPS_FILENAME} | sed -e ':a;N;$!ba;s/\n/\\n/g')#" \
-      -e "s#\${PEER_PORT}#${PEER_PORT}#g" \
+      		-e "s#\${PEER_PORT}#${PEER_PORT}#g" \
 			${CONFIG_TEMPLATE_DIR}/rippled_genesis_template.cfg > ${out_cfg}
-		# put validator public key in validators.txt
-
-		sed -e "s#\${VALIDATORS_PUBLIC_KEYS}#${all_validator_keys}#" \
-			${CONFIG_TEMPLATE_DIR}/validators_txt_template.txt > ${out_validators}
+		
+		if [[ -n "$UNL_MANAGER_ROOT_URI" ]]; then
+			unl_pub_key=$(cat "${OUTPUT_DIR}/unl-manager/validator-keys.json" | jq .public_key | sed 's/\"//g' )
+			unl_uri="${UNL_MANAGER_ROOT_URI}${VAL_NAME_PREFIX}${val_id}/"
+			# There is a UNL manager set up
+			sed -e "s#\${UNL_PUBLISHERS_URIS}#${unl_uri}#" \
+				-e "s#\${UNL_PUBLISHERS_KEYS}#${unl_pub_key}#" \
+				${CONFIG_TEMPLATE_DIR}/validators_txt_UNLmanager_template.txt > ${out_validators}
+		else
+			# There is no UNL manager defined
+			# put validator public key in validators.txt
+			sed -e "s#\${VALIDATORS_PUBLIC_KEYS}#${all_validator_keys}#" \
+				${CONFIG_TEMPLATE_DIR}/validators_txt_template.txt > ${out_validators}
+		fi;
 	else
 		#It's validator node
 		# replace  validator key and validator token in cfg file
@@ -89,9 +99,18 @@ function generate_validator_configuration() {
       -e "s#\${PEER_PORT}#${PEER_PORT}#g" \
 			${CONFIG_TEMPLATE_DIR}/rippled_template.cfg > ${out_cfg}
 
-    # put validator public key in validators.txt
-		sed -e "s#\${VALIDATORS_PUBLIC_KEYS}#${all_validator_keys}#" \
-			${CONFIG_TEMPLATE_DIR}/validators_txt_template.txt > ${out_validators}
+		if [[ -n "$UNL_MANAGER_ROOT_URI" ]]; then
+			unl_pub_key=$(cat "${OUTPUT_DIR}/unl-manager/validator-keys.json" | jq .public_key | sed 's/\"//g' ) 
+			unl_uri="${UNL_MANAGER_ROOT_URI}${VAL_NAME_PREFIX}${val_id}/"
+			# There is a UNL manager set up
+			sed -e "s#\${UNL_PUBLISHERS_URIS}#${unl_uri}#" \
+				-e "s#\${UNL_PUBLISHERS_KEYS}#${unl_pub_key}#" \
+				${CONFIG_TEMPLATE_DIR}/validators_txt_UNLmanager_template.txt > ${out_validators}
+		else
+    		# put validator public key in validators.txt
+			sed -e "s#\${VALIDATORS_PUBLIC_KEYS}#${all_validator_keys}#" \
+				${CONFIG_TEMPLATE_DIR}/validators_txt_template.txt > ${out_validators}
+		fi;
 	fi;
 }
 
@@ -143,7 +162,17 @@ function generate_keys_and_configs()
 	echo {} > ${OUTPUT_DIR}/${VALIDATORS_MAP_FILENAME}
 	VAL_NUM=$1
 
-  echo "Generating keys for genesis"
+	if [[ -n "$UNL_MANAGER_ROOT_URI" ]]; then
+		echo "UNL manager URI definition found... ${UNL_MANAGER_ROOT_URI}"
+		echo "Generating keys for UNL manager..."
+		val_name_prefix_old=${VAL_NAME_PREFIX}
+		VAL_NAME_PREFIX="unl-manager"
+		# Generates validator keys in output dir
+		generate_validator_keys ""
+		VAL_NAME_PREFIX=$val_name_prefix_old
+	fi;
+
+	echo "Generating keys for genesis"
 	generate_validator_keys "genesis"
 	update_global_files "genesis"
  
