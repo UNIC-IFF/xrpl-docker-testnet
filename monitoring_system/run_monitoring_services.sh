@@ -1,10 +1,11 @@
 #!/bin/bash
 WORKING_DIR=${WORKING_DIR:-"./"}
 MONITORING_SERVICES_DOCKER_COMPOSE_FILE=monitoring_compose.yml
+TESTNET_NAME=${TESTNET_NAME:-"ripple_testnet"}
 #enable debug
 set -x
 
-running_testnet=$(docker network ls --filter=name=ripple-testnet --format "{{.Name}}" | head -n 1)
+running_testnet=$(docker network ls --filter=name=${TESTNET_NAME} --format "{{.Name}}" | head -n 1)
 
 if [[ -n $running_testnet ]] ; then
   echo "Found a running ripple-testnet. Attaching the monitoring services containers to it."
