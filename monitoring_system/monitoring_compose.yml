@@ -63,3 +63,12 @@ services:
       - 9093:9093
     volumes:
       - ./alertmanager/alertmanager.yml:/etc/alertmanager/alertmanager.yml
+  docker_stats_exporter:
+    image: wywywywy/docker_stats_exporter:latest
+    container_name: dc_stats_exp
+    ports:
+      - 9487:9487
+    networks: 
+      - ripple_testnet
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock

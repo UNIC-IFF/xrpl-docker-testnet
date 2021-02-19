@@ -35,3 +35,4 @@ scrape_configs:
         - pushgateway:9091
         - alertmanager:9093
         - grafana:3000
+        - dc_stats_exp:9487
