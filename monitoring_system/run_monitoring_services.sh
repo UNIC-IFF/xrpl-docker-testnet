@@ -13,7 +13,31 @@ else
   return 1;
 fi;
 
-TESTNET=${running_testnet} docker-compose -f ${WORKING_DIR}/${MONITORING_SERVICES_DOCKER_COMPOSE_FILE} up -d
+#creating docker volumes if they are not existed
+
+INFLUXDB_VOL_NAME=${INFLUXDB_VOL_NAME:-"testnet_influxdb_data"}
+existedvol=$(docker volume ls --filter=name=$INFLUXDB_VOL_NAME --format "{{.Name}}" | head -n 1)
+if [[ -n $existedvol ]] ; then
+  echo "Found an existed docker volume for monitoring InfluxDB, $existedvol. Attaching it to the monitoring influxdb."
+else
+  echo "The $INFLUXDB_VOL_NAME docker volume not found! Creating one..."
+  docker volume create $INFLUXDB_VOL_NAME
+  return 1;
+fi;
+
+
+GF_DATA_VOL_NAME=${GF_DATA_VOL_NAME:-"testnet_grafana_data"}
+existedvol=$(docker volume ls --filter=name=$GF_DATA_VOL_NAME --format "{{.Name}}" | head -n 1)
+if [[ -n $existedvol ]] ; then
+  echo "Found an existed docker volume for monitoring Grafana dashboard, $existedvol. Attaching it to the Grafana container."
+else
+  echo "The $GF_DATA_VOL_NAME docker volume not found! Creating one..."
+  docker volume create $GF_DATA_VOL_NAME
+  return 1;
+fi;
+
+
+TESTNET=${running_testnet} GF_DATA_VOL_NAME=$GF_DATA_VOL_NAME INFLUXDB_VOL_NAME=$INFLUXDB_VOL_NAME docker-compose -f ${WORKING_DIR}/${MONITORING_SERVICES_DOCKER_COMPOSE_FILE} up -d
 
 #create prometheus as a data source in grafana container
 #chmod +x ./monitoring_system/create-datasource.sh

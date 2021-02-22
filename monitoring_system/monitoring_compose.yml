@@ -3,6 +3,15 @@ networks:
   ripple_testnet:
     external : true
     name: ${TESTNET:-"ripple-testnet"}
+
+volumes:
+  grafana-data:
+    external : true
+    name: ${GF_DATA_VOL_NAME:-testnet_grafana_data}
+  influxdb-data:
+    external : true
+    name: ${INFLUXDB_VOL_NAME:-testnet_influxdb_data}
+
 services:
   influxdb:
     image: influxdb:1.8.1
@@ -19,7 +28,9 @@ services:
     networks:
       - ripple_testnet
     volumes:
-      - ./local_bind_volume_dir:/var/lib/influxdb
+      # - ./local_bind_volume_dir:/var/lib/influxdb 
+      - influxdb-data:/var/lib/influxdb
+
     ports:
       - 8086:8086
   pushgateway:
@@ -52,6 +63,13 @@ services:
       - ripple_testnet
     environment:
       - GF_SECURITY_ADMIN_PASSWORD=password
+      # - GF_PATHS_CONFIG=/opt/grafana-config/grafana.ini
+    volumes:
+      - grafana-data:/var/lib/grafana
+      # - ./grafana-storage/grafana-data:/var/lib/grafana # didn't work because of permissions
+      # USE the following in combination with env GF_PATHS_CONFIG=/opt/grafana-config/grafana.ini
+      # - ./grafana-storage/config:/opt/grafana-config 
+    
   alertmanager:
     image: prom/alertmanager:${ALERTMANAGER_IMG_TAG:-latest}
     container_name: alertmanager
