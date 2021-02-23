@@ -36,8 +36,22 @@ else
   return 1;
 fi;
 
+PROM_DATA_VOL_NAME=${PROM_DATA_VOL_NAME:-"testnet_prometheus_data"}
+existedvol=$(docker volume ls --filter=name=$PROM_DATA_VOL_NAME --format "{{.Name}}" | head -n 1)
+if [[ -n $existedvol ]] ; then
+  echo "Found an existed docker volume for monitoring POrometheus service, $existedvol. Attaching it to the Prometheus container."
+else
+  echo "The $PROM_DATA_VOL_NAME docker volume not found! Creating one..."
+  docker volume create $PROM_DATA_VOL_NAME
+  return 1;
+fi;
 
-TESTNET=${running_testnet} GF_DATA_VOL_NAME=$GF_DATA_VOL_NAME INFLUXDB_VOL_NAME=$INFLUXDB_VOL_NAME docker-compose -f ${WORKING_DIR}/${MONITORING_SERVICES_DOCKER_COMPOSE_FILE} up -d
+
+TESTNET=${running_testnet} \
+GF_DATA_VOL_NAME=$GF_DATA_VOL_NAME \
+INFLUXDB_VOL_NAME=$INFLUXDB_VOL_NAME \
+PROM_DATA_VOL_NAME=$PROM_DATA_VOL_NAME \
+docker-compose -f ${WORKING_DIR}/${MONITORING_SERVICES_DOCKER_COMPOSE_FILE} up -d
 
 #create prometheus as a data source in grafana container
 #chmod +x ./monitoring_system/create-datasource.sh

@@ -11,6 +11,9 @@ volumes:
   influxdb-data:
     external : true
     name: ${INFLUXDB_VOL_NAME:-testnet_influxdb_data}
+  prometheus-data:
+    external : true
+    name: ${PROM_DATA_VOL_NAME:-testnet_prometheus_data}
 
 services:
   influxdb:
@@ -53,6 +56,7 @@ services:
     volumes:
       - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
       - ./prometheus/alerts/:/etc/prometheus/rules.d/
+      - prometheus-data:/prometheus/data
   grafana:
     image: grafana/grafana:${GRAFANA_IMG_TAG:-latest}
     container_name: grafana
