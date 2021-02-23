@@ -43,8 +43,10 @@ if [[ -n $existedvol ]] ; then
 else
   echo "The $PROM_DATA_VOL_NAME docker volume not found! Creating one..."
   docker volume create $PROM_DATA_VOL_NAME
+  docker run --rm -v $PROM_DATA_VOL_NAME:/prom alpine sh -c 'chown -R 65534:65534 /prom'
   return 1;
 fi;
+
 
 
 TESTNET=${running_testnet} \
