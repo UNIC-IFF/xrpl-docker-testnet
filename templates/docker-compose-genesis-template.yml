@@ -20,13 +20,15 @@ services:
     hostname: ${VAL_NAME_PREFIX}genesis
     volumes:
       - ${CONFIGFILES}/${VAL_NAME_PREFIX}genesis:/rippled/config
-    command: "./rippled --start --conf config/rippled.cfg"
+      - ./exporters:/rippled/exporters
+    command: "./rippled --start --conf config/rippled.cfg"      
 # Uncomment the following lines to make genesis interface available in localhost.
 # Changing the line to "-52235:51235", changes the port rippled listens in localhost
     ports:
       - ${PEER_PORT}:${PEER_PORT}
       - 6006:6006
       - 5005:5005
+      - 5006:5006
     networks:
       - ripple-testnet
 # Comment the line above and uncomment the following 2 lines to specify the IP address of the genesis server.
@@ -36,4 +38,4 @@ services:
       - ${PEER_PORT}
       - 6006
       - 5005
-
+      - 5006
