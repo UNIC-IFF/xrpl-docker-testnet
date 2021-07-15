@@ -9,7 +9,7 @@ OUTPUT_DIR=${OUTPUT_DIR:-$(realpath ./configfiles)}
 VAL_NAME_PREFIX=${VAL_NAME_PREFIX:-"validator-"}
 PEER_PORT=${PEER_PORT:-51235}
 
-IMAGE_TAG=${IMAGE_TAG:-"v1.5.1"}
+IMAGE_TAG=${IMAGE_TAG:-"v1.7.0"}
 TESTNET_NAME=${TESTNET_NAME:-"ripple_testnet"}
 
 #UNL manager related variables
