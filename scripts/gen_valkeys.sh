@@ -78,13 +78,10 @@ function generate_validator_configuration() {
 		# replace  ips_fixed and validator token in cfg file
 		sed -e "s#\${VALIDATOR_TOKEN}#$(tail -n 12 ${out_token} | sed -e ':a;N;$!ba;s/\n/\\n/g;s/\#/\\#/g')#" \
 			-e "s#\${IPS_FIXED}#$(cat ${OUTPUT_DIR}/${IPS_FILENAME} | sed -e ':a;N;$!ba;s/\n/\\n/g')#" \
-<<<<<<< HEAD
-      		-e "s#\${PEER_PORT}#${PEER_PORT}#g" \
-=======
-      -e "s#\${PEER_PORT}#${PEER_PORT}#g" \
-      -e "s#\${VALIDATOR_NAME}#${VAL_NAME_PREFIX}${val_id}#g" \
-      -e "s#\${PRIVATE_IP}#${PRIV_IP}#g" \
->>>>>>> 3rd-article
+	        -e "s#\${PEER_PORT}#${PEER_PORT}#g" \
+            -e "s#\${VALIDATOR_NAME}#${VAL_NAME_PREFIX}${val_id}#g" \
+            -e "s#\${PRIVATE_IP}#${PRIV_IP}#g" \
+
 			${CONFIG_TEMPLATE_DIR}/rippled_genesis_template.cfg > ${out_cfg}
 		
 		if [[ -n "$UNL_MANAGER_ROOT_URI" ]]; then
