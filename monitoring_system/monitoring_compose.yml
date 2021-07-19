@@ -101,7 +101,7 @@ services:
       - ripple_testnet
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-    dozzle:
+  dozzle:
     container_name: containers_logs_ui
     image: amir20/dozzle:latest
     volumes:
