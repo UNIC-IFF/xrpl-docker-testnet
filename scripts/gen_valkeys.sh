@@ -15,7 +15,10 @@ VAL_NAME_PREFIX=${VAL_NAME_PREFIX:-${VAL_NAME_PREFIX_DEFAULT}}
 CONFIG_TEMPLATE_DIR=${TEMPLATES_DIR:-${CONFIG_TEMPLATE_DIR_DEFAULT}}
 
 PEER_PORT=${PEER_PORT:-51235}
+PRIV_IP="statsd-graphite"
+#PRIV_IP=$(/sbin/ip -o -4 addr list eth0 | awk '{print $4}' | cut -d/ -f1):8125
 
+DOCKER_OUTPUT_DIR="./$(basename $OUTPUT_DIR)/"
 
 
 function check_and_create_output_dirs(){
@@ -75,7 +78,13 @@ function generate_validator_configuration() {
 		# replace  ips_fixed and validator token in cfg file
 		sed -e "s#\${VALIDATOR_TOKEN}#$(tail -n 12 ${out_token} | sed -e ':a;N;$!ba;s/\n/\\n/g;s/\#/\\#/g')#" \
 			-e "s#\${IPS_FIXED}#$(cat ${OUTPUT_DIR}/${IPS_FILENAME} | sed -e ':a;N;$!ba;s/\n/\\n/g')#" \
+<<<<<<< HEAD
       		-e "s#\${PEER_PORT}#${PEER_PORT}#g" \
+=======
+      -e "s#\${PEER_PORT}#${PEER_PORT}#g" \
+      -e "s#\${VALIDATOR_NAME}#${VAL_NAME_PREFIX}${val_id}#g" \
+      -e "s#\${PRIVATE_IP}#${PRIV_IP}#g" \
+>>>>>>> 3rd-article
 			${CONFIG_TEMPLATE_DIR}/rippled_genesis_template.cfg > ${out_cfg}
 		
 		if [[ -n "$UNL_MANAGER_ROOT_URI" ]]; then
@@ -98,6 +107,8 @@ function generate_validator_configuration() {
 		sed -e "s#\${VALIDATOR_TOKEN}#$(tail -n 12 ${out_token} | sed -e ':a;N;$!ba;s/\n/\\n/g;s/\#/\\#/g')#" \
 			-e "s#\${IPS_FIXED}#$(cat ${OUTPUT_DIR}/${IPS_FILENAME} | sed -e ':a;N;$!ba;s/\n/\\n/g')#" \
       -e "s#\${PEER_PORT}#${PEER_PORT}#g" \
+      -e "s#\${VALIDATOR_NAME}#${VAL_NAME_PREFIX}${val_id}#g" \
+      -e "s#\${PRIVATE_IP}#${PRIV_IP}#g" \
 			${CONFIG_TEMPLATE_DIR}/rippled_template.cfg > ${out_cfg}
 
 		if [[ -n "$UNL_MANAGER_ROOT_URI" ]]; then
