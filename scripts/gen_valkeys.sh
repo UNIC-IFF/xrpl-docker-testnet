@@ -20,6 +20,7 @@ PRIV_IP="statsd-graphite"
 
 DOCKER_OUTPUT_DIR="./$(basename $OUTPUT_DIR)/"
 
+set -x;
 
 function check_and_create_output_dirs(){
 	if [[ ! -d $OUTPUT_DIR ]] ; then
@@ -81,7 +82,6 @@ function generate_validator_configuration() {
 	        -e "s#\${PEER_PORT}#${PEER_PORT}#g" \
             -e "s#\${VALIDATOR_NAME}#${VAL_NAME_PREFIX}${val_id}#g" \
             -e "s#\${PRIVATE_IP}#${PRIV_IP}#g" \
-
 			${CONFIG_TEMPLATE_DIR}/rippled_genesis_template.cfg > ${out_cfg}
 		
 		if [[ -n "$UNL_MANAGER_ROOT_URI" ]]; then
