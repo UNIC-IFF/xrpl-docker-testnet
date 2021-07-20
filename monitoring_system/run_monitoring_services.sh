@@ -3,7 +3,7 @@ WORKING_DIR=${WORKING_DIR:-"./"}
 MONITORING_SERVICES_DOCKER_COMPOSE_FILE=monitoring_compose.yml
 TESTNET_NAME=${TESTNET_NAME:-"ripple_testnet"}
 #enable debug
-set -x
+#set -x
 
 running_testnet=$(docker network ls --filter=name=${TESTNET_NAME} --format "{{.Name}}" | head -n 1)
 
@@ -60,4 +60,4 @@ docker-compose -f ${WORKING_DIR}/${MONITORING_SERVICES_DOCKER_COMPOSE_FILE} up -
 #chmod +x ./monitoring_system/create-datasource.sh
 ./monitoring_system/create-datasource.sh
 
-set +x
+#set +x

@@ -6,10 +6,10 @@
 WORKING_DIR=${WORKING_DIR:-$(realpath ./)}
 COMPOSE_FILE=${WORKING_DIR}/docker-compose-testnet.yaml
 OUTPUT_DIR=${OUTPUT_DIR:-$(realpath ./configfiles)}
-IMAGE_TAG=${IMAGE_TAG:-"v1.5"}
+IMAGE_TAG=${IMAGE_TAG:-"v1.7.2"}
 TESTNET_NAME=${TESTNET_NAME:-"ripple-testnet"}
 
-UNL_MANAGER_ENABLE=${UNL_MANAGER_ENABLE:-false}
+UNL_MANAGER_ENABLE=${UNL_MANAGER_ENABLE:-true}
 
 CONFIGFILES=${OUTPUT_DIR} IMAGE_TAG=${IMAGE_TAG} TESTNET_NAME=$TESTNET_NAME docker-compose -f ${COMPOSE_FILE} down
 docker-compose -f ${WORKING_DIR}/monitoring_system/monitoring_compose.yml down
