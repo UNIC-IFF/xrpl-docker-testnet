@@ -15,12 +15,11 @@ VAL_NAME_PREFIX=${VAL_NAME_PREFIX:-${VAL_NAME_PREFIX_DEFAULT}}
 CONFIG_TEMPLATE_DIR=${TEMPLATES_DIR:-${CONFIG_TEMPLATE_DIR_DEFAULT}}
 
 PEER_PORT=${PEER_PORT:-51235}
-PRIV_IP="statsd-graphite"
+PRIV_IP="statsd-graphite:8125"
 #PRIV_IP=$(/sbin/ip -o -4 addr list eth0 | awk '{print $4}' | cut -d/ -f1):8125
 
 DOCKER_OUTPUT_DIR="./$(basename $OUTPUT_DIR)/"
 
-set -x;
 
 function check_and_create_output_dirs(){
 	if [[ ! -d $OUTPUT_DIR ]] ; then
@@ -65,6 +64,8 @@ function generate_validator_configuration() {
 	DOCKER_OUTPUT_DIR="./$(basename $OUTPUT_DIR)/"
   # Arguments
 	val_id=$1
+	set -x;
+
 	# It is running in local machine, so no use of DOCKER_OUTPUT_DIR
 	out_keys="${OUTPUT_DIR}/${VAL_NAME_PREFIX}${val_id}/validator-keys.json"
 	out_token="${OUTPUT_DIR}/${VAL_NAME_PREFIX}${val_id}/validator-token.txt"
@@ -122,6 +123,7 @@ function generate_validator_configuration() {
 				${CONFIG_TEMPLATE_DIR}/validators_txt_template.txt > ${out_validators}
 		fi;
 	fi;
+	set +x;
 }
 
 
