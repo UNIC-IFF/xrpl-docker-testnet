@@ -15,7 +15,7 @@ VAL_NAME_PREFIX=${VAL_NAME_PREFIX:-${VAL_NAME_PREFIX_DEFAULT}}
 CONFIG_TEMPLATE_DIR=${TEMPLATES_DIR:-${CONFIG_TEMPLATE_DIR_DEFAULT}}
 
 PEER_PORT=${PEER_PORT:-51235}
-PRIV_IP=statsd-graphite:8125
+PRIV_IP=statsd_graphite:8125
 #PRIV_IP=$(/sbin/ip -o -4 addr list eth0 | awk '{print $4}' | cut -d/ -f1):8125
 
 DOCKER_OUTPUT_DIR="./$(basename $OUTPUT_DIR)/"
