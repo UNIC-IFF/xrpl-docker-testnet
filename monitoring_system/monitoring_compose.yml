@@ -79,7 +79,7 @@ services:
       - ripple_testnet
     ports:
       - 80:80
-      - 8126:8126/udp
+      - 8126:8126
       - 8125:8125/udp    
   alertmanager:
     image: prom/alertmanager:${ALERTMANAGER_IMG_TAG:-latest}
