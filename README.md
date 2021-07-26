@@ -71,8 +71,10 @@ IFF Research Team @ UNIC
 - Marios Touloupos ( @mtouloup ) - UBRI Fellow Researcher / PhD Candidate, University of Nicosia - Institute for the Future ( UNIC -IFF)
 - Klitos Christodoulou ( @klitoschr ) - Research Manager and Faculty Member, University of Nicosia - Institute For the Future (UNIC-IFF)
 
-## UBRI Funding
-[TODO]
+## Acknowledgements
+This work is funded by the Ripple’s Impact Fund, an advised fund of Silicon Valley Community Foundation (Grant id: 2018–188546).
+Link: [University Blockchain Research Initiative](https://ubri.ripple.com)
+
 
 ## About IFF
 
