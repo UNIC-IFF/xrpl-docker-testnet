@@ -6,6 +6,7 @@
 #      - ${CONFIGFILES}/${VAL_NAME_PREFIX}${VALNUM}:/rippled/config
       - ${CONFIGFILES}/${VAL_NAME_PREFIX}${VALNUM}:/etc/opt/ripple
       - ./exporters:/rippled/exporters
+      - ${CONFIGFILES}/${VAL_NAME_PREFIX}${VALNUM}/inetd.conf:/etc/inetd.conf
     networks:
       - ripple-testnet
 # Comment the line above and uncomment the following 2 lines to specify the IP address of the container.
@@ -13,6 +14,7 @@
 #      ripple-testnet:
 #        ipv4_address: 192.168.16.1${VALNUM}
 #    command: "./rippled --conf config/rippled.cfg"
+    entrypoint: "/entrypoint.sh"
     command: "./rippled"
     ports:
       - ${PEER_PORT}

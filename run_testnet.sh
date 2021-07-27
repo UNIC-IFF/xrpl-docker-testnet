@@ -70,9 +70,12 @@ if [ -x "$mon_start_script" ]; then
   chmod +x $mon_start_script
 fi
 
-WORKING_DIR=${WORKING_DIR}/monitoring_system $mon_start_script
+WORKING_DIR=${WORKING_DIR}/monitoring_system \
+TESTNET_NAME=${TESTNET_NAME} \
+        $mon_start_script
 
 
+echo "statsd_graphite IP:" $(docker container inspect statsdgraphite | jq -r .[0].NetworkSettings.Networks.${TESTNET_NAME}.IPAddress)
 
 #run testnet
 echo "Starting the testnet..."
@@ -89,20 +92,22 @@ do
 	docker exec -it ${VAL_NAME_PREFIX}$i sh -c "./rippled connect ${VAL_NAME_PREFIX}genesis ${PEER_PORT}"
 done
 
-sleep 30;
-docker container restart ${VAL_NAME_PREFIX}genesis
+# sleep 30;
+# docker container restart ${VAL_NAME_PREFIX}genesis
 
-echo "Expired UNL workaround...."
-for (( i=0; i<"${VAL_NUM}"; i++ ))
-do
-  sleep 10;
-  docker container restart ${VAL_NAME_PREFIX}$i
-done
+# echo "Expired UNL workaround...."
+# for (( i=0; i<"${VAL_NUM}"; i++ ))
+# do
+#   sleep 10;
+#   docker container restart ${VAL_NAME_PREFIX}$i
+# done
 
 
 # setup exporter
-
 echo "Setup exporter in each validator"
+
+docker exec -d ${VAL_NAME_PREFIX}genesis sh -c "python3 exporters/server_info/server_info.py"
+
 for (( i=0; i<"${VAL_NUM}"; i++ ))
 do
 	docker exec -d ${VAL_NAME_PREFIX}$i sh -c "python3 exporters/server_info/server_info.py"

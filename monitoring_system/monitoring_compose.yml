@@ -74,7 +74,7 @@ services:
       # - ./grafana-storage/config:/opt/grafana-config 
   statsd:
     image: graphiteapp/graphite-statsd
-    container_name: statsd_graphite
+    container_name: statsdgraphite
     networks:
       - ripple_testnet
     ports:
