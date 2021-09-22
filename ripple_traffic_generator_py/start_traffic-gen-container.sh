@@ -4,7 +4,7 @@ TRAFFIC_GEN_DOCKER_COMPOSE_FILE=ripple-traffic-generator.yml
 #enable debug
 set -x
 
-running_testnet=$(docker network ls --filter=name=ripple-testnet --format "{{.Name}}" | head -n 1)
+running_testnet=$(docker network ls --filter=name=ripple_testnet --format "{{.Name}}" | head -n 1)
 
 if [[ -n $running_testnet ]] ; then
   echo "Found a running ripple-testnet. Attaching the traffic generator container to it."
