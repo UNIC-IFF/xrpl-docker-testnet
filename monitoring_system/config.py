@@ -1,5 +1,5 @@
 class monitoring_vars:
-    HOST_DOMAIN = "monitoring_system_pushgateway_1"
+    HOST_DOMAIN = "localhost"
     PROMETHEUS_PORT = "9090"
     PG_PORT = "9091"
     ALERT_MANAGER = "9093"
