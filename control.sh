@@ -2,8 +2,14 @@
 
 DEFAULT_ENVFILE="$(dirname $0)/defaults.env"
 ENVFILE=${ENVFILE:-"$DEFAULT_ENVFILE"}
+
 ### Define or load default variables
+WORKING_DIR=${WORKING_DIR:-$(realpath $(dirname $0))}
+TEMPLATES_DIR=${TEMPLATES_DIR:-$(realpath $(dirname $0)/templates/)}
+OUTPUT_DIR=${OUTPUT_DIR:-$(realpath $(dirname $0)/configfiles)}
+
 source $ENVFILE
+
 ###
 
 ### Source scripts under scripts directory
