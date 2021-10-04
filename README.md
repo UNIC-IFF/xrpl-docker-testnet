@@ -23,6 +23,27 @@ Setting them before the executing the script overwrites default values.
 
 ## Testnet related operations
 
+### Using the *control.sh* script
+
+```
+control.sh is the main control script for the testnet.
+Usage : control.sh <action> <arguments>
+
+Actions:
+  start     --val-num|-n <num of validators>
+       Starts a network with <num_validators> 
+  configure --val-num|-n <num of validators>
+       configures a network with <num_validators> 
+  stop
+       Stops the running network
+  clean
+       Cleans up the configuration directories of the network
+  status
+       Prints the status of the network
+```
+
+
+
 ### Launching the testnet
 
 ```
