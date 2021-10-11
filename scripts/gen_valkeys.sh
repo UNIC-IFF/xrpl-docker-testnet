@@ -22,6 +22,8 @@ MONITORING_STATSD_ADDRESS=${MONITORING_STATSD_ADDRESS:-"statsdgraphite 8125"}
 
 DOCKER_OUTPUT_DIR="./$(basename $OUTPUT_DIR)/"
 
+XRPL_UNL_MANAGER_DIR=${XRPL_UNL_MANAGER_DIR:-"$(dirname ${OUTPUT_DIR})/xrpl-unl-manager/"}
+
 
 function check_and_create_output_dirs(){
 	if [[ ! -d $OUTPUT_DIR ]] ; then
@@ -67,6 +69,7 @@ function generate_validator_configuration() {
   # Arguments
 	val_id=$1
 	set -x;
+        echo UNLMANAGER_DIR=$XRPL_UNL_MANAGER_DIR
 
 	# It is running in local machine, so no use of DOCKER_OUTPUT_DIR
 	out_keys="${OUTPUT_DIR}/${VAL_NAME_PREFIX}${val_id}/validator-keys.json"
@@ -95,7 +98,7 @@ function generate_validator_configuration() {
 
 		if [[ -n "$UNL_MANAGER_ROOT_URI" ]]; then
 			unl_pub_key=$(cat "${OUTPUT_DIR}/unl-manager/validator-keys.json" | jq .public_key | sed 's/\"//g' )
-			unl_pub_key=$(echo -e "import utils\nprint(utils.base58ToHex('${unl_pub_key}').upper().decode('ascii'))" | PYTHONPATH=$(realpath ./xrpl-unl-manager/) python3 )
+			unl_pub_key=$(echo -e "import utils\nprint(utils.base58ToHex('${unl_pub_key}').upper().decode('ascii'))" | PYTHONPATH=$(realpath $XRPL_UNL_MANAGER_DIR) python3 )
 			unl_uri="${UNL_MANAGER_ROOT_URI}${VAL_NAME_PREFIX}${val_id}/"
 			# There is a UNL manager set up
 			sed -e "s#\${UNL_PUBLISHERS_URIS}#${unl_uri}#" \
@@ -122,7 +125,7 @@ function generate_validator_configuration() {
 			
 		if [[ -n "$UNL_MANAGER_ROOT_URI" ]]; then
 			unl_pub_key=$(cat "${OUTPUT_DIR}/unl-manager/validator-keys.json" | jq .public_key | sed 's/\"//g' ) 
-			unl_pub_key=$(echo -e "import utils\nprint(utils.base58ToHex('${unl_pub_key}').upper().decode('ascii'))" | PYTHONPATH=$(realpath ./xrpl-unl-manager/) python3 )
+			unl_pub_key=$(echo -e "import utils\nprint(utils.base58ToHex('${unl_pub_key}').upper().decode('ascii'))" | PYTHONPATH=$(realpath ${XRPL_UNL_MANAGER_DIR}) python3 )
 			unl_uri="${UNL_MANAGER_ROOT_URI}${VAL_NAME_PREFIX}${val_id}/"
 			# There is a UNL manager set up
 			sed -e "s#\${UNL_PUBLISHERS_URIS}#${unl_uri}#" \

@@ -73,7 +73,7 @@ function start_network()
     UNL_PUBLISHER_CONTAINER_NAME=${UNL_PUBLISHER_CONTAINER_NAME} \
     UNL_SCENARIO_FILE=${UNL_SCENARIO_FILE} \
     UNL_MANAGER_KEYFILE=${OUTPUT_DIR}/unl-manager/validator-token.txt \
-      ./xrpl-unl-manager/start_UNL_manager_services.sh
+      ${WORKING_DIR}/xrpl-unl-manager/start_UNL_manager_services.sh
 
     echo "    Done!"
   fi;
