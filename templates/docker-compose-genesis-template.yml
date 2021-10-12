@@ -5,8 +5,8 @@ networks:
 # Uncomment the following line if you have already created the network in docker
     external : true
     name: ${TESTNET_NAME:-ripple_testnet}
-    ipam:
-      driver: default
+#    ipam:
+#      driver: default
 # The following line configures the subnet in the network
 #      config:
 #        - subnet: "192.168.16.0/24"
