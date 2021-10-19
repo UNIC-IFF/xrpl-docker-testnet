@@ -52,8 +52,13 @@ function start_network()
 {
   nvals=$1
   echo "Starting network with $nvals validators..."
-  docker network create ${TESTNET_NAME}
-  
+
+# check if the network exists and create it
+  existing_net=$( docker network ls --filter=name="^$TESTNET_NAME$" --format={{.Name}}) 
+  if [ -z "$existing_net" ]; then
+    docker network create ${TESTNET_NAME}
+  fi
+
   if [[ -n "$UNL_MANAGER_ENABLE" && "$UNL_MANAGER_ENABLE" == true ]]; then
 
     if [[ ! -e ${UNL_SCENARIO_FILE} ]] ; then
