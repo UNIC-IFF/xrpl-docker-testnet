@@ -14,9 +14,15 @@ OUTPUT_DIR=${OUTPUT_DIR:-${OUTPUT_DIR_DEFAULT}}
 VAL_NAME_PREFIX=${VAL_NAME_PREFIX:-${VAL_NAME_PREFIX_DEFAULT}}
 CONFIG_TEMPLATE_DIR=${TEMPLATES_DIR:-${CONFIG_TEMPLATE_DIR_DEFAULT}}
 
+TESTNET_NAME=${TESTNET_NAME:-"ripple-testnet"}
 PEER_PORT=${PEER_PORT:-51235}
+MONITORING_STATSD_ADDRESS=${MONITORING_STATSD_ADDRESS:-"statsdgraphite 8125"}
+#PRIV_IP=$(docker container inspect statsd_graphite | jq -r .[0].NetworkSettings.Networks.${TESTNET_NAME}.IPAddress):8125
+#PRIV_IP=$(/sbin/ip -o -4 addr list eth0 | awk '{print $4}' | cut -d/ -f1):8125
 
 DOCKER_OUTPUT_DIR="./$(basename $OUTPUT_DIR)/"
+
+XRPL_UNL_MANAGER_DIR=${XRPL_UNL_MANAGER_DIR:-"$(dirname ${OUTPUT_DIR})/xrpl-unl-manager/"}
 
 
 function check_and_create_output_dirs(){
@@ -28,6 +34,7 @@ function check_and_create_output_dirs(){
 
 
 function generate_validator_keys() {
+  DOCKER_OUTPUT_DIR="./$(basename $OUTPUT_DIR)/"
 	# Arguments
 	val_id=$1
 	out_keys="${DOCKER_OUTPUT_DIR}/${VAL_NAME_PREFIX}${val_id}/validator-keys.json"
@@ -58,40 +65,79 @@ function generate_validator_keys() {
 }
 
 function generate_validator_configuration() {
-	# Arguments
+	DOCKER_OUTPUT_DIR="./$(basename $OUTPUT_DIR)/"
+  # Arguments
 	val_id=$1
+	set -x;
+        echo UNLMANAGER_DIR=$XRPL_UNL_MANAGER_DIR
+
 	# It is running in local machine, so no use of DOCKER_OUTPUT_DIR
 	out_keys="${OUTPUT_DIR}/${VAL_NAME_PREFIX}${val_id}/validator-keys.json"
 	out_token="${OUTPUT_DIR}/${VAL_NAME_PREFIX}${val_id}/validator-token.txt"
 	out_cfg="${OUTPUT_DIR}/${VAL_NAME_PREFIX}${val_id}/rippled.cfg"
+	out_inetd_cfg="${OUTPUT_DIR}/${VAL_NAME_PREFIX}${val_id}/inetd.conf"
 	out_validators="${OUTPUT_DIR}/${VAL_NAME_PREFIX}${val_id}/validators.txt"
+
+	# echo statsd ip: $(docker container inspect statsd_graphite | jq -r .[0].NetworkSettings.Networks.${TESTNET_NAME}.IPAddress):8125
 
 	# Read all validator keys and list them
 	all_validator_keys=$(cat  ${OUTPUT_DIR}/${VALIDATORS_MAP_FILENAME} | jq '.[]' | sed ':a;N;$!ba;s/\n/\\n/g' | sed 's/\"//g')
-
+	
 	if [[ "$val_id" == "genesis" ]]; then
 		#It's genesis node
 		# replace  ips_fixed and validator token in cfg file
 		sed -e "s#\${VALIDATOR_TOKEN}#$(tail -n 12 ${out_token} | sed -e ':a;N;$!ba;s/\n/\\n/g;s/\#/\\#/g')#" \
 			-e "s#\${IPS_FIXED}#$(cat ${OUTPUT_DIR}/${IPS_FILENAME} | sed -e ':a;N;$!ba;s/\n/\\n/g')#" \
-      -e "s#\${PEER_PORT}#${PEER_PORT}#g" \
-			${CONFIG_TEMPLATE_DIR}/rippled_genesis_template.cfg > ${out_cfg}
-		# put validator public key in validators.txt
+	        -e "s#\${PEER_PORT}#${PEER_PORT}#g" \
+            -e "s#\${VALIDATOR_NAME}#${VAL_NAME_PREFIX:: -1}_${val_id}#g" \
+            ${CONFIG_TEMPLATE_DIR}/rippled_genesis_template.cfg > ${out_cfg}
+		    # -e "s#\${PRIVATE_IP}#${PRIV_IP}#g" \
 
-		sed -e "s#\${VALIDATORS_PUBLIC_KEYS}#${all_validator_keys}#" \
-			${CONFIG_TEMPLATE_DIR}/validators_txt_template.txt > ${out_validators}
+		sed -e "s#\${MONITORING_STATSD_ADDRESS}#${MONITORING_STATSD_ADDRESS}#g" \
+            ${CONFIG_TEMPLATE_DIR}/inetd-template.conf > ${out_inetd_cfg}
+
+		if [[ -n "$UNL_MANAGER_ROOT_URI" ]]; then
+			unl_pub_key=$(cat "${OUTPUT_DIR}/unl-manager/validator-keys.json" | jq .public_key | sed 's/\"//g' )
+			unl_pub_key=$(echo -e "import utils\nprint(utils.base58ToHex('${unl_pub_key}').upper().decode('ascii'))" | PYTHONPATH=$(realpath $XRPL_UNL_MANAGER_DIR) python3 )
+			unl_uri="${UNL_MANAGER_ROOT_URI}${VAL_NAME_PREFIX}${val_id}/"
+			# There is a UNL manager set up
+			sed -e "s#\${UNL_PUBLISHERS_URIS}#${unl_uri}#" \
+				-e "s#\${UNL_PUBLISHERS_KEYS}#${unl_pub_key}#" \
+				${CONFIG_TEMPLATE_DIR}/validators_txt_UNLmanager_template.txt > ${out_validators}
+		else
+			# There is no UNL manager defined
+			# put validator public key in validators.txt
+			sed -e "s#\${VALIDATORS_PUBLIC_KEYS}#${all_validator_keys}#" \
+				${CONFIG_TEMPLATE_DIR}/validators_txt_template.txt > ${out_validators}
+		fi;
 	else
 		#It's validator node
 		# replace  validator key and validator token in cfg file
 		sed -e "s#\${VALIDATOR_TOKEN}#$(tail -n 12 ${out_token} | sed -e ':a;N;$!ba;s/\n/\\n/g;s/\#/\\#/g')#" \
 			-e "s#\${IPS_FIXED}#$(cat ${OUTPUT_DIR}/${IPS_FILENAME} | sed -e ':a;N;$!ba;s/\n/\\n/g')#" \
-      -e "s#\${PEER_PORT}#${PEER_PORT}#g" \
+            -e "s#\${PEER_PORT}#${PEER_PORT}#g" \
+            -e "s#\${VALIDATOR_NAME}#${VAL_NAME_PREFIX:: -1}_${val_id}#g" \
 			${CONFIG_TEMPLATE_DIR}/rippled_template.cfg > ${out_cfg}
-
-    # put validator public key in validators.txt
-		sed -e "s#\${VALIDATORS_PUBLIC_KEYS}#${all_validator_keys}#" \
-			${CONFIG_TEMPLATE_DIR}/validators_txt_template.txt > ${out_validators}
+            #-e "s#\${PRIVATE_IP}#${PRIV_IP}#g" \
+        
+		sed -e "s#\${MONITORING_STATSD_ADDRESS}#${MONITORING_STATSD_ADDRESS}#g" \
+            ${CONFIG_TEMPLATE_DIR}/inetd-template.conf > ${out_inetd_cfg}
+			
+		if [[ -n "$UNL_MANAGER_ROOT_URI" ]]; then
+			unl_pub_key=$(cat "${OUTPUT_DIR}/unl-manager/validator-keys.json" | jq .public_key | sed 's/\"//g' ) 
+			unl_pub_key=$(echo -e "import utils\nprint(utils.base58ToHex('${unl_pub_key}').upper().decode('ascii'))" | PYTHONPATH=$(realpath ${XRPL_UNL_MANAGER_DIR}) python3 )
+			unl_uri="${UNL_MANAGER_ROOT_URI}${VAL_NAME_PREFIX}${val_id}/"
+			# There is a UNL manager set up
+			sed -e "s#\${UNL_PUBLISHERS_URIS}#${unl_uri}#" \
+				-e "s#\${UNL_PUBLISHERS_KEYS}#${unl_pub_key}#" \
+				${CONFIG_TEMPLATE_DIR}/validators_txt_UNLmanager_template.txt > ${out_validators}
+		else
+    		# put validator public key in validators.txt
+			sed -e "s#\${VALIDATORS_PUBLIC_KEYS}#${all_validator_keys}#" \
+				${CONFIG_TEMPLATE_DIR}/validators_txt_template.txt > ${out_validators}
+		fi;
 	fi;
+	set +x;
 }
 
 
@@ -142,7 +188,17 @@ function generate_keys_and_configs()
 	echo {} > ${OUTPUT_DIR}/${VALIDATORS_MAP_FILENAME}
 	VAL_NUM=$1
 
-  echo "Generating keys for genesis"
+	if [[ -n "$UNL_MANAGER_ROOT_URI" ]]; then
+		echo "UNL manager URI definition found... ${UNL_MANAGER_ROOT_URI}"
+		echo "Generating keys for UNL manager..."
+		val_name_prefix_old=${VAL_NAME_PREFIX}
+		VAL_NAME_PREFIX="unl-manager"
+		# Generates validator keys in output dir
+		generate_validator_keys ""
+		VAL_NAME_PREFIX=$val_name_prefix_old
+	fi;
+
+	echo "Generating keys for genesis"
 	generate_validator_keys "genesis"
 	update_global_files "genesis"
  

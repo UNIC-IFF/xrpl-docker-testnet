@@ -1,0 +1,5 @@
+[validator_list_sites]
+${UNL_PUBLISHERS_URIS}
+
+[validator_list_keys]
+${UNL_PUBLISHERS_KEYS}
