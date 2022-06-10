@@ -10,7 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "fs": "0.0.1-security",
-    "node-fetch": "^2.6.1",
+    "node-fetch": "^3.1.1",
     "ripple-lib": "^1.6.5",
     "strict": "0.0.0"
   }
