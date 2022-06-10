@@ -1,4 +1,3 @@
 [submodule "xrpl-unl-manager"]
 	path = xrpl-unl-manager
 	url = https://github.com/UNIC-IFF/xrpl-unl-manager
-	branch = master
