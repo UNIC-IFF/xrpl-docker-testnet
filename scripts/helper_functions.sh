@@ -1,6 +1,6 @@
 #!/bin/bash
 
-VAL_NAME_PREFIX_DEFAULT="validator-"
+VAL_NAME_PREFIX_DEFAULT="xrpl-validator-"
 
 WORKING_DIR=${WORKING_DIR:-$(realpath ./)}
 TEMPLATES_DIR=${TEMPLATES_DIR:-$(realpath ./templates/)}
