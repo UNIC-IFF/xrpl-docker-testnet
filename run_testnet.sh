@@ -6,7 +6,7 @@ WORKING_DIR=${WORKING_DIR:-$(realpath ./)}
 TEMPLATES_DIR=${TEMPLATES_DIR:-$(realpath ./templates/)}
 COMPOSE_FILENAME=${COMPOSE_FILENAME:-"docker-compose-testnet.yaml"}
 OUTPUT_DIR=${OUTPUT_DIR:-$(realpath ./configfiles)}
-VAL_NAME_PREFIX=${VAL_NAME_PREFIX:-"validator-"}
+VAL_NAME_PREFIX=${VAL_NAME_PREFIX:-"xrpl-validator-"}
 PEER_PORT=${PEER_PORT:-51235}
 
 IMAGE_TAG=${IMAGE_TAG:-"v1.7.2"}

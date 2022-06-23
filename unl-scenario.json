@@ -11,25 +11,25 @@
             "state_id":"initial_state",
             "comments":"The state_id can then be used for reference in any scripts reading the scenario. It is also used as id by the visualizer.",
             "validators":{
-                "validator-genesis":{
-                    "unl":["validator-genesis","validator-0","validator-1","validator-2","validator-3"],
-                    "connected":["validator-genesis","validator-0","validator-1","validator-2","validator-3"]
+                "xrpl-validator-genesis":{
+                    "unl":["xrpl-validator-genesis","xrpl-validator-0","xrpl-validator-1","xrpl-validator-2","xrpl-validator-3"],
+                    "connected":["xrpl-validator-genesis","xrpl-validator-0","xrpl-validator-1","xrpl-validator-2","xrpl-validator-3"]
                 },
-                "validator-0":{
-                    "unl":["validator-genesis","validator-0","validator-1","validator-2","validator-3"],
-                    "connected":["validator-genesis","validator-0","validator-1","validator-2","validator-3"]
+                "xrpl-validator-0":{
+                    "unl":["xrpl-validator-genesis","xrpl-validator-0","xrpl-validator-1","xrpl-validator-2","xrpl-validator-3"],
+                    "connected":["xrpl-validator-genesis","xrpl-validator-0","xrpl-validator-1","xrpl-validator-2","xrpl-validator-3"]
                 },
-                "validator-1":{
-                    "unl":["validator-genesis","validator-0","validator-1","validator-2","validator-3"],
-                    "connected":["validator-genesis","validator-0","validator-1","validator-2","validator-3"]
+                "xrpl-validator-1":{
+                    "unl":["xrpl-validator-genesis","xrpl-validator-0","xrpl-validator-1","xrpl-validator-2","xrpl-validator-3"],
+                    "connected":["xrpl-validator-genesis","xrpl-validator-0","xrpl-validator-1","xrpl-validator-2","xrpl-validator-3"]
                 },
-                "validator-2":{
-                    "unl":["validator-genesis","validator-0","validator-1","validator-2","validator-3"],
-                    "connected":["validator-genesis","validator-0","validator-1","validator-2","validator-3"]
+                "xrpl-validator-2":{
+                    "unl":["xrpl-validator-genesis","xrpl-validator-0","xrpl-validator-1","xrpl-validator-2","xrpl-validator-3"],
+                    "connected":["xrpl-validator-genesis","xrpl-validator-0","xrpl-validator-1","xrpl-validator-2","xrpl-validator-3"]
                 },
-                "validator-3":{
-                    "unl":["validator-genesis","validator-0","validator-1","validator-2","validator-3"],
-                    "connected":["validator-genesis","validator-0","validator-1","validator-2","validator-3"]
+                "xrpl-validator-3":{
+                    "unl":["xrpl-validator-genesis","xrpl-validator-0","xrpl-validator-1","xrpl-validator-2","xrpl-validator-3"],
+                    "connected":["xrpl-validator-genesis","xrpl-validator-0","xrpl-validator-1","xrpl-validator-2","xrpl-validator-3"]
                 }
             }
 

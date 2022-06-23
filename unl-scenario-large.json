@@ -11,113 +11,113 @@
             "state_id":"initial_state",
             "comments":"The state_id can then be used for reference in any scripts reading the scenario. It is also used as id by the visualizer.",
             "validators":{
-                "validator-genesis":{
-                    "unl":["validator-genesis","validator-0","validator-1","validator-2","validator-3"],
-                    "connected":["validator-genesis","validator-0","validator-1","validator-2","validator-3"]
+                "xrpl-validator-genesis":{
+                    "unl":["xrpl-validator-genesis","xrpl-validator-0","xrpl-validator-1","xrpl-validator-2","xrpl-validator-3"],
+                    "connected":["xrpl-validator-genesis","xrpl-validator-0","xrpl-validator-1","xrpl-validator-2","xrpl-validator-3"]
                 },
-                "validator-0":{
-                    "unl":["validator-genesis","validator-0","validator-1","validator-2","validator-3"],
-                    "connected":["validator-genesis","validator-0","validator-1","validator-2","validator-3"]
+                "xrpl-validator-0":{
+                    "unl":["xrpl-validator-genesis","xrpl-validator-0","xrpl-validator-1","xrpl-validator-2","xrpl-validator-3"],
+                    "connected":["xrpl-validator-genesis","xrpl-validator-0","xrpl-validator-1","xrpl-validator-2","xrpl-validator-3"]
                 },
-                "validator-1":{
-                    "unl":["validator-genesis","validator-0","validator-1","validator-2","validator-3"],
-                    "connected":["validator-genesis","validator-0","validator-1","validator-2","validator-3"]
+                "xrpl-validator-1":{
+                    "unl":["xrpl-validator-genesis","xrpl-validator-0","xrpl-validator-1","xrpl-validator-2","xrpl-validator-3"],
+                    "connected":["xrpl-validator-genesis","xrpl-validator-0","xrpl-validator-1","xrpl-validator-2","xrpl-validator-3"]
                 },
-                "validator-2":{
-                    "unl":["validator-genesis","validator-0","validator-1","validator-2","validator-3"],
-                    "connected":["validator-genesis","validator-0","validator-1","validator-2","validator-3"]
+                "xrpl-validator-2":{
+                    "unl":["xrpl-validator-genesis","xrpl-validator-0","xrpl-validator-1","xrpl-validator-2","xrpl-validator-3"],
+                    "connected":["xrpl-validator-genesis","xrpl-validator-0","xrpl-validator-1","xrpl-validator-2","xrpl-validator-3"]
                 },
-                "validator-3":{
-                    "unl":["validator-genesis","validator-0","validator-1","validator-2","validator-3"],
-                    "connected":["validator-genesis","validator-0","validator-1","validator-2","validator-3"]
+                "xrpl-validator-3":{
+                    "unl":["xrpl-validator-genesis","xrpl-validator-0","xrpl-validator-1","xrpl-validator-2","xrpl-validator-3"],
+                    "connected":["xrpl-validator-genesis","xrpl-validator-0","xrpl-validator-1","xrpl-validator-2","xrpl-validator-3"]
                 },
-                "validator-4":{
-                    "unl":["validator-genesis","validator-0","validator-1","validator-2","validator-3"],
-                    "connected":["validator-genesis","validator-0","validator-1","validator-2","validator-3"]
+                "xrpl-validator-4":{
+                    "unl":["xrpl-validator-genesis","xrpl-validator-0","xrpl-validator-1","xrpl-validator-2","xrpl-validator-3"],
+                    "connected":["xrpl-validator-genesis","xrpl-validator-0","xrpl-validator-1","xrpl-validator-2","xrpl-validator-3"]
                 },
-                "validator-5":{
-                    "unl":["validator-genesis","validator-0","validator-1","validator-2","validator-3"],
-                    "connected":["validator-genesis","validator-0","validator-1","validator-2","validator-3"]
+                "xrpl-validator-5":{
+                    "unl":["xrpl-validator-genesis","xrpl-validator-0","xrpl-validator-1","xrpl-validator-2","xrpl-validator-3"],
+                    "connected":["xrpl-validator-genesis","xrpl-validator-0","xrpl-validator-1","xrpl-validator-2","xrpl-validator-3"]
                 },
-                "validator-6":{
-                    "unl":["validator-genesis","validator-0","validator-1","validator-2","validator-3"],
-                    "connected":["validator-genesis","validator-0","validator-1","validator-2","validator-3"]
+                "xrpl-validator-6":{
+                    "unl":["xrpl-validator-genesis","xrpl-validator-0","xrpl-validator-1","xrpl-validator-2","xrpl-validator-3"],
+                    "connected":["xrpl-validator-genesis","xrpl-validator-0","xrpl-validator-1","xrpl-validator-2","xrpl-validator-3"]
                 },
-                "validator-7":{
-                    "unl":["validator-genesis","validator-0","validator-1","validator-2","validator-3"],
-                    "connected":["validator-genesis","validator-0","validator-1","validator-2","validator-3"]
+                "xrpl-validator-7":{
+                    "unl":["xrpl-validator-genesis","xrpl-validator-0","xrpl-validator-1","xrpl-validator-2","xrpl-validator-3"],
+                    "connected":["xrpl-validator-genesis","xrpl-validator-0","xrpl-validator-1","xrpl-validator-2","xrpl-validator-3"]
                 },
-                "validator-8":{
-                    "unl":["validator-genesis","validator-0","validator-1","validator-2","validator-3"],
-                    "connected":["validator-genesis","validator-0","validator-1","validator-2","validator-3"]
+                "xrpl-validator-8":{
+                    "unl":["xrpl-validator-genesis","xrpl-validator-0","xrpl-validator-1","xrpl-validator-2","xrpl-validator-3"],
+                    "connected":["xrpl-validator-genesis","xrpl-validator-0","xrpl-validator-1","xrpl-validator-2","xrpl-validator-3"]
                 },
-                "validator-9":{
-                    "unl":["validator-genesis","validator-0","validator-1","validator-2","validator-3"],
-                    "connected":["validator-genesis","validator-0","validator-1","validator-2","validator-3"]
+                "xrpl-validator-9":{
+                    "unl":["xrpl-validator-genesis","xrpl-validator-0","xrpl-validator-1","xrpl-validator-2","xrpl-validator-3"],
+                    "connected":["xrpl-validator-genesis","xrpl-validator-0","xrpl-validator-1","xrpl-validator-2","xrpl-validator-3"]
                 },
-                "validator-10":{
-                    "unl":["validator-genesis","validator-0","validator-1","validator-2","validator-3"],
-                    "connected":["validator-genesis","validator-0","validator-1","validator-2","validator-3"]
+                "xrpl-validator-10":{
+                    "unl":["xrpl-validator-genesis","xrpl-validator-0","xrpl-validator-1","xrpl-validator-2","xrpl-validator-3"],
+                    "connected":["xrpl-validator-genesis","xrpl-validator-0","xrpl-validator-1","xrpl-validator-2","xrpl-validator-3"]
                 },
-                "validator-11":{
-                    "unl":["validator-genesis","validator-0","validator-1","validator-2","validator-3"],
-                    "connected":["validator-genesis","validator-0","validator-1","validator-2","validator-3"]
+                "xrpl-validator-11":{
+                    "unl":["xrpl-validator-genesis","xrpl-validator-0","xrpl-validator-1","xrpl-validator-2","xrpl-validator-3"],
+                    "connected":["xrpl-validator-genesis","xrpl-validator-0","xrpl-validator-1","xrpl-validator-2","xrpl-validator-3"]
                 },
-                "validator-12":{
-                    "unl":["validator-genesis","validator-0","validator-1","validator-2","validator-3"],
-                    "connected":["validator-genesis","validator-0","validator-1","validator-2","validator-3"]
+                "xrpl-validator-12":{
+                    "unl":["xrpl-validator-genesis","xrpl-validator-0","xrpl-validator-1","xrpl-validator-2","xrpl-validator-3"],
+                    "connected":["xrpl-validator-genesis","xrpl-validator-0","xrpl-validator-1","xrpl-validator-2","xrpl-validator-3"]
                 },
-                "validator-13":{
-                    "unl":["validator-genesis","validator-0","validator-1","validator-2","validator-3"],
-                    "connected":["validator-genesis","validator-0","validator-1","validator-2","validator-3"]
+                "xrpl-validator-13":{
+                    "unl":["xrpl-validator-genesis","xrpl-validator-0","xrpl-validator-1","xrpl-validator-2","xrpl-validator-3"],
+                    "connected":["xrpl-validator-genesis","xrpl-validator-0","xrpl-validator-1","xrpl-validator-2","xrpl-validator-3"]
                 },
-                "validator-14":{
-                    "unl":["validator-genesis","validator-0","validator-1","validator-2","validator-3"],
-                    "connected":["validator-genesis","validator-0","validator-1","validator-2","validator-3"]
+                "xrpl-validator-14":{
+                    "unl":["xrpl-validator-genesis","xrpl-validator-0","xrpl-validator-1","xrpl-validator-2","xrpl-validator-3"],
+                    "connected":["xrpl-validator-genesis","xrpl-validator-0","xrpl-validator-1","xrpl-validator-2","xrpl-validator-3"]
                 },
-                "validator-15":{
-                    "unl":["validator-genesis","validator-0","validator-1","validator-2","validator-3"],
-                    "connected":["validator-genesis","validator-0","validator-1","validator-2","validator-3"]
+                "xrpl-validator-15":{
+                    "unl":["xrpl-validator-genesis","xrpl-validator-0","xrpl-validator-1","xrpl-validator-2","xrpl-validator-3"],
+                    "connected":["xrpl-validator-genesis","xrpl-validator-0","xrpl-validator-1","xrpl-validator-2","xrpl-validator-3"]
                 },
-                "validator-16":{
-                    "unl":["validator-genesis","validator-0","validator-1","validator-2","validator-3"],
-                    "connected":["validator-genesis","validator-0","validator-1","validator-2","validator-3"]
+                "xrpl-validator-16":{
+                    "unl":["xrpl-validator-genesis","xrpl-validator-0","xrpl-validator-1","xrpl-validator-2","xrpl-validator-3"],
+                    "connected":["xrpl-validator-genesis","xrpl-validator-0","xrpl-validator-1","xrpl-validator-2","xrpl-validator-3"]
                 },
-                "validator-17":{
-                    "unl":["validator-genesis","validator-0","validator-1","validator-2","validator-3"],
-                    "connected":["validator-genesis","validator-0","validator-1","validator-2","validator-3"]
+                "xrpl-validator-17":{
+                    "unl":["xrpl-validator-genesis","xrpl-validator-0","xrpl-validator-1","xrpl-validator-2","xrpl-validator-3"],
+                    "connected":["xrpl-validator-genesis","xrpl-validator-0","xrpl-validator-1","xrpl-validator-2","xrpl-validator-3"]
                 },
-                "validator-18":{
-                    "unl":["validator-genesis","validator-0","validator-1","validator-2","validator-3"],
-                    "connected":["validator-genesis","validator-0","validator-1","validator-2","validator-3"]
+                "xrpl-validator-18":{
+                    "unl":["xrpl-validator-genesis","xrpl-validator-0","xrpl-validator-1","xrpl-validator-2","xrpl-validator-3"],
+                    "connected":["xrpl-validator-genesis","xrpl-validator-0","xrpl-validator-1","xrpl-validator-2","xrpl-validator-3"]
                 },
-                "validator-19":{
-                    "unl":["validator-genesis","validator-0","validator-1","validator-2","validator-3"],
-                    "connected":["validator-genesis","validator-0","validator-1","validator-2","validator-3"]
+                "xrpl-validator-19":{
+                    "unl":["xrpl-validator-genesis","xrpl-validator-0","xrpl-validator-1","xrpl-validator-2","xrpl-validator-3"],
+                    "connected":["xrpl-validator-genesis","xrpl-validator-0","xrpl-validator-1","xrpl-validator-2","xrpl-validator-3"]
                 },
-                "validator-20":{
-                    "unl":["validator-genesis","validator-0","validator-1","validator-2","validator-3"],
-                    "connected":["validator-genesis","validator-0","validator-1","validator-2","validator-3"]
+                "xrpl-validator-20":{
+                    "unl":["xrpl-validator-genesis","xrpl-validator-0","xrpl-validator-1","xrpl-validator-2","xrpl-validator-3"],
+                    "connected":["xrpl-validator-genesis","xrpl-validator-0","xrpl-validator-1","xrpl-validator-2","xrpl-validator-3"]
                 },
-                "validator-21":{
-                    "unl":["validator-genesis","validator-0","validator-1","validator-2","validator-3"],
-                    "connected":["validator-genesis","validator-0","validator-1","validator-2","validator-3"]
+                "xrpl-validator-21":{
+                    "unl":["xrpl-validator-genesis","xrpl-validator-0","xrpl-validator-1","xrpl-validator-2","xrpl-validator-3"],
+                    "connected":["xrpl-validator-genesis","xrpl-validator-0","xrpl-validator-1","xrpl-validator-2","xrpl-validator-3"]
                 },
-                "validator-22":{
-                    "unl":["validator-genesis","validator-0","validator-1","validator-2","validator-3"],
-                    "connected":["validator-genesis","validator-0","validator-1","validator-2","validator-3"]
+                "xrpl-validator-22":{
+                    "unl":["xrpl-validator-genesis","xrpl-validator-0","xrpl-validator-1","xrpl-validator-2","xrpl-validator-3"],
+                    "connected":["xrpl-validator-genesis","xrpl-validator-0","xrpl-validator-1","xrpl-validator-2","xrpl-validator-3"]
                 },
-                "validator-23":{
-                    "unl":["validator-genesis","validator-0","validator-1","validator-2","validator-3"],
-                    "connected":["validator-genesis","validator-0","validator-1","validator-2","validator-3"]
+                "xrpl-validator-23":{
+                    "unl":["xrpl-validator-genesis","xrpl-validator-0","xrpl-validator-1","xrpl-validator-2","xrpl-validator-3"],
+                    "connected":["xrpl-validator-genesis","xrpl-validator-0","xrpl-validator-1","xrpl-validator-2","xrpl-validator-3"]
                 },
-                "validator-24":{
-                    "unl":["validator-genesis","validator-0","validator-1","validator-2","validator-3"],
-                    "connected":["validator-genesis","validator-0","validator-1","validator-2","validator-3"]
+                "xrpl-validator-24":{
+                    "unl":["xrpl-validator-genesis","xrpl-validator-0","xrpl-validator-1","xrpl-validator-2","xrpl-validator-3"],
+                    "connected":["xrpl-validator-genesis","xrpl-validator-0","xrpl-validator-1","xrpl-validator-2","xrpl-validator-3"]
                 },
-                "validator-25":{
-                    "unl":["validator-genesis","validator-0","validator-1","validator-2","validator-3"],
-                    "connected":["validator-genesis","validator-0","validator-1","validator-2","validator-3"]
+                "xrpl-validator-25":{
+                    "unl":["xrpl-validator-genesis","xrpl-validator-0","xrpl-validator-1","xrpl-validator-2","xrpl-validator-3"],
+                    "connected":["xrpl-validator-genesis","xrpl-validator-0","xrpl-validator-1","xrpl-validator-2","xrpl-validator-3"]
                 }
             }
 

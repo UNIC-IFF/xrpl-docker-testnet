@@ -1,7 +1,7 @@
 #!/bin/bash
 
 OUTPUT_DIR_DEFAULT="./validators-config/"
-VAL_NAME_PREFIX_DEFAULT="validator-"
+VAL_NAME_PREFIX_DEFAULT="xrpl-validator-"
 CONFIG_TEMPLATE_DIR_DEFAULT="../templates/"
 
 IPS_FILENAME="ips_fixed.lst"
