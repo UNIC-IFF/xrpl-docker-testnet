@@ -112,9 +112,3 @@ dist
 .yarn/unplugged
 .yarn/build-state.yml
 .pnp.*
-
-# generated txt files
-output_data/wallets.txt
-output_data/wallets_secrets.txt
-output_data/transactions.json
-output_data/wallets.json
