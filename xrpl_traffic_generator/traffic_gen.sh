@@ -53,4 +53,4 @@ do
 done
 
 # Push transaction data to monitoring engine
-python3 ../monitoring_system/push_metrics.py 
+python ../monitoring_system/push_metrics.py 
