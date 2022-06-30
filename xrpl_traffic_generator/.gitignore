@@ -114,8 +114,7 @@ dist
 .pnp.*
 
 # generated txt files
-wallets.txt
-wallets_secrets.txt
-output_data/*
-transactions.json
-wallets.json
+output_data/wallets.txt
+output_data/wallets_secrets.txt
+output_data/transactions.json
+output_data/wallets.json
