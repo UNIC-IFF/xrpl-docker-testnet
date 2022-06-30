@@ -1,5 +1,5 @@
 {
-    "host_domain" : "localhost:",
+    "host_domain" : "10.10.70.21:",
     "port" : "6006",
 	"protocol":"ws://",
 	"account_addr": "rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh",
