@@ -88,14 +88,14 @@ function start_network()
 
   TESTNET_NAME=${TESTNET_NAME} CONFIGFILES=${OUTPUT_DIR} IMAGE_TAG=${IMAGE_TAG} docker-compose -f ${WORKING_DIR}/${COMPOSE_FILENAME} up -d
 
-  echo "Waiting for everything goes up..."
+  echo "Waiting for everything to come up..."
   sleep 10
-
-  echo "Running connect command on each validator..."
-
+  echo "Triggering statsd with inetdd"
+  docker exec -it xrpl-validator-genesis sh -c "inetd"
   for (( i=0; i<"${VAL_NUM}"; i++ ))
   do
-	docker exec -it ${VAL_NAME_PREFIX}$i sh -c "./rippled connect ${VAL_NAME_PREFIX}genesis ${PEER_PORT}"
+      
+      docker exec -it ${VAL_NAME_PREFIX}$i sh -c "inetd"
   done
 
   # setup exporter

@@ -19,13 +19,11 @@ services:
     container_name: ${VAL_NAME_PREFIX}genesis
     hostname: ${VAL_NAME_PREFIX}genesis
     volumes:
-      - ${CONFIGFILES}/${VAL_NAME_PREFIX}genesis:/etc/opt/ripple
+      - ${CONFIGFILES}/${VAL_NAME_PREFIX}genesis:/keystore
       - ./exporters:/rippled/exporters
       - ${CONFIGFILES}/${VAL_NAME_PREFIX}genesis/inetd.conf:/etc/inetd.conf
       
-    # command: "./rippled --start --conf config/rippled.cfg"    
-    entrypoint: "/entrypoint.sh"
-    command: "./rippled --start "        
+    # command: "./rippled --start --conf config/rippled.cfg"  
 # Uncomment the following lines to make genesis interface available in localhost.
 # Changing the line to "-52235:51235", changes the port rippled listens in localhost
     ports:

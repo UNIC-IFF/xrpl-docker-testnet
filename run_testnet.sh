@@ -75,22 +75,15 @@ TESTNET_NAME=${TESTNET_NAME} \
         $mon_start_script
 
 
-echo "statsd_graphite IP:" $(docker container inspect statsdgraphite | jq -r .[0].NetworkSettings.Networks.${TESTNET_NAME}.IPAddress)
+echo "statsd_graphite IP:" $(docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' statsdgraphite)
 
 #run testnet
 echo "Starting the testnet..."
 
 TESTNET_NAME=${TESTNET_NAME} CONFIGFILES=${OUTPUT_DIR} IMAGE_TAG=${IMAGE_TAG} docker-compose -f ${WORKING_DIR}/${COMPOSE_FILENAME} up -d
 
-echo "Waiting for everything goes up..."
+echo "Waiting for everything to come up..."
 sleep 10
-
-echo "Running connect command on each validator..."
-
-for (( i=0; i<"${VAL_NUM}"; i++ ))
-do
-	docker exec -it ${VAL_NAME_PREFIX}$i sh -c "./rippled connect ${VAL_NAME_PREFIX}genesis ${PEER_PORT}"
-done
 
 # sleep 30;
 # docker container restart ${VAL_NAME_PREFIX}genesis
