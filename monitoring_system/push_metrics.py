@@ -3,13 +3,17 @@ import os.path
 from prometheus_client import CollectorRegistry, Gauge, push_to_gateway
 from config import monitoring_vars
 
-directory = './output_data/'
+SCRIPT_ROOT = os.path.dirname(os.path.realpath(__file__))
+parent_dir = (os.path.abspath(os.path.join(SCRIPT_ROOT, os.pardir)))
+
+directory = parent_dir+'/xrpl_traffic_generator/output_data/'
 filename = 'transactions.json'
 file_path = os.path.join(directory, filename)
 
 f = open(file_path)
 data = json.load(f)
 f.close()
+
 
 for i in data:
     tx = i['tx_json']['Sequence']

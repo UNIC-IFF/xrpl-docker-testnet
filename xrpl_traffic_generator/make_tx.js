@@ -1,4 +1,4 @@
-var config = require('./config/config.json');
+var config = require(__dirname+'/config/config.json');
 const {performance} = require('perf_hooks');
 const RippleAPI = require('ripple-lib').RippleAPI
 const api       = new RippleAPI({ server: config.protocol+config.host_domain+config.port }) // Private rippled server
@@ -71,10 +71,10 @@ var _processTransaction = function () {
 		console.log(tx_data)
 		try {
 			var data = [];
-			data = require('./output_data/transactions.json');
+			data = require(__dirname+'/output_data/transactions.json');
 			data.push(tx_data);
 			
-			fs.writeFile("./output_data/transactions.json", JSON.stringify(data), (err) => {
+			fs.writeFile(__dirname+"/output_data/transactions.json", JSON.stringify(data), (err) => {
 				if (err) {
 					console.error(err);
 					return;

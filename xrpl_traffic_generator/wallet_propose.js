@@ -1,5 +1,5 @@
 'use strict';
-var config = require('./config/config.json');
+var config = require(__dirname+'/config/config.json');
 const fs = require('fs')
 const RippleAPI = require('ripple-lib').RippleAPI;
 var test_server = config.protocol+config.host_domain+config.port;
@@ -22,10 +22,10 @@ api.connect().then(() => {
 	
 	try {
 			var data = [];
-			data = require('./output_data/wallets.json');
+			data = require(__dirname+'/output_data/wallets.json');
 			data.push(address_info);
 			
-			fs.writeFile("./output_data/wallets.json", JSON.stringify(data), (err) => {
+			fs.writeFile(__dirname+"/output_data/wallets.json", JSON.stringify(data), (err) => {
 				if (err) {
 					console.error(err);
 					return;
@@ -37,7 +37,7 @@ api.connect().then(() => {
 		}
 		
 		
-	fs.appendFile('./output_data/accounts_to_pay.txt',  acc_id + "\n", (err) => {     
+	fs.appendFile(__dirname+'/output_data/accounts_to_pay.txt',  acc_id + "\n", (err) => {     
 		// In case of a error throw err. 
 		if (err) throw err; 
 	}) 

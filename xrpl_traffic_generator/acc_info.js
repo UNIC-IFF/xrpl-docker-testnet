@@ -1,6 +1,6 @@
 'use strict';
-var config = require('./config/config.json');
-const RippleAPI = require('ripple-lib').RippleAPI;
+var config = require(__dirname+'/config/config.json');
+const RippleAPI = require($Directory+'ripple-lib').RippleAPI;
 var test_server = config.protocol+config.host_domain+config.port;
 
 const api = new RippleAPI({

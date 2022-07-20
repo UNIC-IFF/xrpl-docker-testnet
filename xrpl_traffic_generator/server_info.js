@@ -1,5 +1,5 @@
 'use strict';
-var config = require('./config/config.json');
+var config = require(__dirname+'/config/config.json');
 const RippleAPI = require('ripple-lib').RippleAPI;
 
 const api = new RippleAPI({
