@@ -1,8 +1,11 @@
-# Private Ripple Testnet
 
-This project is a set of scripts that generate all the required validators' key-pairs and configuration files to start a private Ripple network. Additionally, it generates a docker-compose file for the private Ripple Testnet that can be used to launch a testnet locally, or on a server or on a Docker Swarm Cluster.
+# XRPL Docker Testnet
 
-The main idea behind this effort, is to provide a one-click testing tool for those developers want to test it while they are implementing  major networking features, such as on consensus mechanism. It can also be used for further testing or benchmarking in small-scale networks. It is a very usefull tool for anyone that do not have access to a cluster and it is way easier to manage than kubernetes.  
+This project is a set of scripts that generate all the required validators' key-pairs and configuration files to start a private XRPL network. Additionally, it generates a docker-compose file for the private testnet that can be used to launch a testnet locally, or on a server or on a Docker Swarm Cluster.
+
+The main idea behind this effort, is to provide a one-click testing tool for those developers want to test it while they are implementing  major networking features, such as on consensus mechanism. It can also be used for further testing or benchmarking in small-scale networks. It is a very usefull tool for anyone that do not have access to a cluster and it is way easier to manage than kubernetes.
+
+In regards to the consensus process of the private testnet, a UNL mananger is spawned that generated the UNL list that is served by an nginx server. Each validator is configured with a unique URL that uses in order to invoke and read the UNL that trusts.  
 
 ## Requirements
 - Docker Engine should be installed and running.
@@ -10,6 +13,7 @@ Currently, the docker daemon will pull the rippled-runner image from the DockerH
 - Docker Compose
 - jq , JSON Command line tool
 - sed, File Streams Command line tool
+- Tested on Ubuntu > 16.04
 
 ## Key Variables and Parameters
 The key environment variables of the scripts are the following:
@@ -42,25 +46,15 @@ Actions:
        Prints the status of the network
 ```
 
-
-
 ### Launching the testnet
 
 ```
-chmod +x run_testnet.sh
-./run_testnet.sh <num of validators>
-```
-If no arguments passed, *num of validators* defaults to *0* and only the genesis validator will be included in the final generated docker-compose file of the testnet.
-
-### Launching the same testnet
-```
-CONFIGFILES=./configfiles IMAGE_TAG="v1.5" docker-compose -f docker-compose-testnet.yml up -d
-```
-
-### Stopping the testnet
-```
-chmod +x stop_testnet.sh
-./stop_testnet.sh
+git clone https://github.com/UNIC-IFF/xrpl-docker-testnet.git
+git submodule update --init --recursive
+chmod +x control.sh
+cd xrpl-unl-manager && pip install -r requirements.txt
+./control.sh configure -n <num_of_validators>
+./control.sh start -n <num_of_validators>
 ```
 
 ### Getting useful information
@@ -84,11 +78,8 @@ docker exec -it validator-0 sh -c "./rippled --conf config/rippled.cfg peers"
 docker run -it --rm --network $(docker network ls -q --filter=name=ripple-testnet) curlimages/curl --insecure https://validator-0:51235/crawl | jq"
 ```
 
-## Contributors
+## Lead Developer
 
-IFF Research Team @ UNIC
-
-- Antonios Inglezakis ( @antIggl ) - UBRI Fellow Researcher / Senior Software Engineer and Systems Administrator, University of Nicosia - Institute For the Future (UNIC-IFF)
 - Marios Touloupos ( @mtouloup ) - UBRI Fellow Researcher / PhD Candidate, University of Nicosia - Institute for the Future ( UNIC -IFF)
 
 # Research Team
